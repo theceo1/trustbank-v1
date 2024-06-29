@@ -1,13 +1,28 @@
 // src/components/ui/Button.js
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Button({ children, onClick, variant, size = 'md' }) {
-  const baseStyles = 'rounded px-4 py-2 font-medium focus:outline-none';
-  const variantStyles = variant === 'outline' ? 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white' : 'bg-teal-500 text-white hover:bg-teal-600';
-  const sizeStyles = size === 'sm' ? 'text-sm' : size === 'icon' ? 'p-2' : 'text-md';
+const Button = ({
+  variant = 'solid', // Default parameter
+  size = 'medium', // Default parameter
+  children,
+  ...props
+}) => {
+  let className = 'btn';
+  if (variant === 'outline') className += ' btn-outline';
+  if (size === 'icon') className += ' btn-icon';
 
   return (
-    <button onClick={onClick} className={`${baseStyles} ${variantStyles} ${sizeStyles}`}>
+    <button className={className} {...props}>
       {children}
     </button>
   );
-}
+};
+
+Button.propTypes = {
+  variant: PropTypes.oneOf(['solid', 'outline']),
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'icon']),
+  children: PropTypes.node.isRequired,
+};
+
+export default Button;

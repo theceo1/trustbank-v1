@@ -1,38 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Card = ({ children, className, ...props }) => {
-  return <div className={`card ${className}`} {...props}>{children}</div>;
-};
+const Card = ({ children, className }) => (
+  <div className={`bg-white p-4 rounded-lg shadow ${className}`}>
+    {children}
+  </div>
+);
 
 Card.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 
-export const CardHeader = ({ children, className, ...props }) => {
-  return <div className={`card-header ${className}`} {...props}>{children}</div>;
+Card.defaultProps = {
+  className: '',
 };
+
+export const CardHeader = ({ children }) => (
+  <div className="mb-4">
+    {children}
+  </div>
+);
+
+export const CardTitle = ({ children }) => (
+  <h3 className="text-lg font-semibold text-gray-800">
+    {children}
+  </h3>
+);
+
+export const CardContent = ({ children }) => (
+  <div className="text-gray-700">
+    {children}
+  </div>
+);
 
 CardHeader.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-export const CardTitle = ({ children, className, ...props }) => {
-  return <div className={`card-title ${className}`} {...props}>{children}</div>;
 };
 
 CardTitle.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-export const CardContent = ({ children, className, ...props }) => {
-  return <div className={`card-content ${className}`} {...props}>{children}</div>;
 };
 
 CardContent.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
 };
+
+export default Card;

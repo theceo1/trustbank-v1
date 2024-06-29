@@ -1,23 +1,22 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import HeroSection from '@/components/ui/HeroSection';
+import FeaturesSection from '@/components/ui/FeaturesSection';
+import TestimonialsSection from '@/components/ui/TestimonialsSection';
+import CallToAction from '@/components/ui/CallToAction';
 
 export default function Home() {
   return (
-    <div className="container mx-auto p-4">
+    <div>
       <Head>
         <title>trustbank</title>
         <meta name="description" content="Cryptocurrency Exchange Platform" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="flex flex-col items-center justify-center min-h-screen py-2">
-        <h1 className="text-6xl font-bold text-center">
-          Welcome to <span className="text-teal-500">trustbank!</span>
-        </h1>
-        <Link href="/dashboard">
-          <span className="mt-6 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 cursor-pointer">Go to Dashboard</span>
-        </Link>
-      </main>
+      <HeroSection />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CallToAction />
     </div>
   );
 }

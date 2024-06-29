@@ -1,50 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Table = ({ children }) => {
-  return <table className="table">{children}</table>;
-};
+const Table = ({ children }) => (
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white">
+      {children}
+    </table>
+  </div>
+);
+
+export const TableHeader = ({ children }) => (
+  <thead>
+    {children}
+  </thead>
+);
+
+export const TableRow = ({ children }) => (
+  <tr>
+    {children}
+  </tr>
+);
+
+export const TableHead = ({ children }) => (
+  <th className="py-2 px-4 border-b border-gray-300 text-left text-sm font-medium text-gray-700">
+    {children}
+  </th>
+);
+
+export const TableBody = ({ children }) => (
+  <tbody>
+    {children}
+  </tbody>
+);
+
+export const TableCell = ({ children }) => (
+  <td className="py-2 px-4 border-b border-gray-300 text-sm text-gray-700">
+    {children}
+  </td>
+);
 
 Table.propTypes = {
   children: PropTypes.node.isRequired,
-};
-
-export const TableHeader = ({ children }) => {
-  return <thead className="table-header">{children}</thead>;
 };
 
 TableHeader.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const TableRow = ({ children }) => {
-  return <tr className="table-row">{children}</tr>;
-};
-
 TableRow.propTypes = {
   children: PropTypes.node.isRequired,
-};
-
-export const TableHead = ({ children }) => {
-  return <th className="table-head">{children}</th>;
 };
 
 TableHead.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const TableBody = ({ children }) => {
-  return <tbody className="table-body">{children}</tbody>;
-};
-
 TableBody.propTypes = {
   children: PropTypes.node.isRequired,
-};
-
-export const TableCell = ({ children }) => {
-  return <td className="table-cell">{children}</td>;
 };
 
 TableCell.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default Table;
