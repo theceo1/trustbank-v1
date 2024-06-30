@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import Modal from '@/components/ui/Modal';
@@ -12,18 +11,27 @@ import Button from '@/components/ui/Button';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
+const DynamicChart = dynamic(() => import('@/components/ui/Chart'), { ssr: false });
 
 const Dashboard = () => {
   const [marketData, setMarketData] = useState([]);
+  const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
   const [isModalOpen, setModalOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [tooltipContent, setTooltipContent] = useState('');
 
   useEffect(() => {
-    socket.on('message', (data) => {
-      setMarketData(JSON.parse(data));
+    socket.on('marketData', (data) => {
+      setMarketData(data);
+    });
+
+    socket.on('accountBalance', (data) => {
+      setAccountBalance(data);
     });
 
     return () => {
-      socket.off('message');
+      socket.off('marketData');
+      socket.off('accountBalance');
     };
   }, []);
 
@@ -34,13 +42,16 @@ const Dashboard = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1 space-y-6">
-          <Card className="bg-teal-500 text-white shadow-lg">
+          <Card className="card-balance shadow-lg">
             <CardHeader>
               <CardTitle>Account Balance</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl text-white">$12,345.67 ≈ 1.23 BTC</p>
-              <Button variant="solid" className="mt-4 bg-white text-teal-500 hover:bg-gray-100">Deposit</Button>
+              <p className="text-2xl">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
+              <div className="flex justify-end mt-4">
+                <Button variant="solid" className="bg-gray-900 text-white hover:bg-black mr-2">Debit</Button>
+                <Button variant="solid" className="bg-white text-teal-500 hover:bg-gray-100">Deposit</Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -116,24 +127,16 @@ const Dashboard = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>Bitcoin</TableCell>
-                    <TableCell>$56,789.00</TableCell>
-                    <TableCell className="text-green-500">+2.5%</TableCell>
-                    <TableCell>$1.2T</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Ethereum</TableCell>
-                    <TableCell>$1,789.00</TableCell>
-                    <TableCell className="text-red-500">-1.2%</TableCell>
-                    <TableCell>$210B</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>USDC</TableCell>
-                    <TableCell>$1.00</TableCell>
-                    <TableCell className="text-green-500">+0.1%</TableCell>
-                    <TableCell>$55B</TableCell>
-                  </TableRow>
+                  {marketData.map((data) => (
+                    <TableRow key={data.symbol}>
+                      <TableCell>{data.name}</TableCell>
+                      <TableCell>{data.price}</TableCell>
+                      <TableCell className={data.change > 0 ? 'text-green-500' : 'text-red-500'}>
+                        {data.change > 0 ? `+${data.change}%` : `${data.change}%`}
+                      </TableCell>
+                      <TableCell>{data.marketCap}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>
@@ -184,8 +187,10 @@ const Dashboard = () => {
         <h2>Modal Title</h2>
         <p>This is a modal content.</p>
       </Modal>
-      <Notification message="This is a notification" type="success" />
-      <Tooltip text="This is a tooltip">
+      {notifications.map((notification, index) => (
+        <Notification key={index} message={notification.message} type={notification.type} />
+      ))}
+      <Tooltip text={tooltipContent}>
         <Button variant="outline">Hover me</Button>
       </Tooltip>
     </div>

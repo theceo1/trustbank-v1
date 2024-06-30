@@ -1,47 +1,49 @@
 // src/components/ui/Header.js
 
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
+import { useAuth } from '@/context/AuthContext';
+import MobileMenu from './MobileMenu';
 
-export default function Header() {
+const Header = () => {
+  const { user, logout } = useAuth();
+
   return (
-    <header className="bg-black text-white py-4 px-6 flex items-center justify-between shadow-md">
-      <div className="flex items-center gap-4">
-        <Link href="/" className="text-lg font-bold" prefetch={false}>
-          trustBank
-        </Link>
-        <nav className="hidden md:flex items-center gap-4">
-          <Link href="/trade" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Trade
+    <header className="bg-white dark:bg-gray-800 shadow">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="text-2xl font-bold">
+          <Link href="/" legacyBehavior>
+            TrustBank
           </Link>
-          <Link href="/earn" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Earn
+        </div>
+        <div className="hidden md:flex space-x-4">
+          <Link href="/markets" legacyBehavior>
+            <span className="text-gray-800 dark:text-white">Markets</span>
           </Link>
-          <Link href="/wallet" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Wallet
+          <Link href="/wallet" legacyBehavior>
+            <span className="text-gray-800 dark:text-white">Wallet</span>
           </Link>
-          <Link href="/markets" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Markets
+          <Link href="/settings" legacyBehavior>
+            <span className="text-gray-800 dark:text-white">Settings</span>
           </Link>
-          <Link href="/vision" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Vision
-          </Link>
-          <Link href="/profile" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Profile
-          </Link>
-          <Link href="/settings" className="hover:text-teal-500 text-sm" prefetch={false}>
-            Settings
-          </Link>
-        </nav>
-      </div>
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="sm" className="hover:bg-teal-500 hover:text-white">
-          Sign In
-        </Button>
-        <Button size="sm" className="bg-teal-500 hover:bg-teal-600">
-          Sign Up
-        </Button>
+          {user ? (
+            <Button onClick={logout}>Logout</Button>
+          ) : (
+            <div>
+              <Link href="/signin" legacyBehavior>
+                <span className="text-gray-800 dark:text-white">Sign In</span>
+              </Link>
+              <Link href="/signup" legacyBehavior>
+                <span className="text-gray-800 dark:text-white ml-4">Sign Up</span>
+              </Link>
+            </div>
+          )}
+        </div>
+        <MobileMenu />
       </div>
     </header>
   );
-}
+};
+
+export default Header;

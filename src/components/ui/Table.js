@@ -2,39 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Table = ({ children }) => (
-  <div className="overflow-x-auto">
-    <table className="min-w-full bg-white">
-      {children}
-    </table>
-  </div>
+  <table className="min-w-full bg-white">
+    {children}
+  </table>
 );
 
-export const TableHeader = ({ children }) => (
+const TableHeader = ({ children }) => (
   <thead>
     {children}
   </thead>
 );
 
-export const TableRow = ({ children }) => (
+const TableRow = ({ children }) => (
   <tr>
     {children}
   </tr>
 );
 
-export const TableHead = ({ children }) => (
-  <th className="py-2 px-4 border-b border-gray-300 text-left text-sm font-medium text-gray-700">
+const TableHead = ({ children }) => (
+  <th className="py-2 px-4 border-b-2 border-gray-300 text-left text-gray-600">
     {children}
   </th>
 );
 
-export const TableBody = ({ children }) => (
+const TableBody = ({ children }) => (
   <tbody>
     {children}
   </tbody>
 );
 
-export const TableCell = ({ children }) => (
-  <td className="py-2 px-4 border-b border-gray-300 text-sm text-gray-700">
+const TableCell = ({ children }) => (
+  <td className="py-2 px-4 border-b border-gray-200">
     {children}
   </td>
 );
@@ -63,4 +61,4 @@ TableCell.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Table;
+export { Table, TableHeader, TableRow, TableHead, TableBody, TableCell };

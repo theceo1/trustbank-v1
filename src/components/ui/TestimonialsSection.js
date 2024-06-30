@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
@@ -10,7 +9,7 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
-const Dashboard = () => {
+const TestimonialsSection = () => {
   const [marketData, setMarketData] = useState([]);
   const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
   const [isModalOpen, setModalOpen] = useState(false);
@@ -177,4 +176,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default TestimonialsSection;

@@ -1,17 +1,15 @@
+// src/components/ui/HeroSection.js
 import React from 'react';
+import Button from '@/components/ui/Button';
 
-const HeroSection = () => {
-  return (
-    <section className="bg-teal-500 text-white py-20">
-      <div className="container mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-4">Welcome to TrustBank</h1>
-        <p className="text-xl mb-8">Your Trusted Cryptocurrency Exchange Platform</p>
-        <button className="bg-white text-teal-500 font-bold py-2 px-4 rounded hover:bg-gray-100">
-          Get Started
-        </button>
-      </div>
-    </section>
-  );
-};
+const HeroSection = () => (
+  <div className="hero bg-[#090f2d] text-white py-16 px-4">
+    <div className="container mx-auto text-center">
+      <h1 className="text-4xl font-bold mt-0">trustBank</h1>
+      <p className="text-sm mb-2">TRADE | SPEND | <span className='text-teal-500'>EARN</span></p>
+      <Button variant="solid" className="bg-teal text-teal-500 hover:bg-gray-100">Get Started</Button>
+    </div>
+  </div>
+);
 
 export default HeroSection;

@@ -1,4 +1,5 @@
 // src/components/ui/Notification.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -11,7 +12,7 @@ const Notification = ({ message, type }) => {
     info: 'bg-blue-500 text-white',
   };
 
-  const classes = classNames('notification p-4 rounded shadow-md', types[type]);
+  const classes = classNames('notification p-4 rounded shadow-md mt-4', types[type]);
 
   return <div className={classes}>{message}</div>;
 };

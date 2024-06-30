@@ -16,19 +16,19 @@ Card.defaultProps = {
   className: '',
 };
 
-export const CardHeader = ({ children }) => (
+const CardHeader = ({ children }) => (
   <div className="mb-4">
     {children}
   </div>
 );
 
-export const CardTitle = ({ children }) => (
+const CardTitle = ({ children }) => (
   <h3 className="text-lg font-semibold text-gray-800">
     {children}
   </h3>
 );
 
-export const CardContent = ({ children }) => (
+const CardContent = ({ children }) => (
   <div className="text-gray-700">
     {children}
   </div>
@@ -46,4 +46,4 @@ CardContent.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Card;
+export { Card, CardHeader, CardTitle, CardContent };
