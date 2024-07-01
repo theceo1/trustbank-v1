@@ -49,8 +49,7 @@ const Dashboard = () => {
             <CardContent>
               <p className="text-2xl">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
               <div className="flex justify-end mt-4">
-                <Button variant="solid" className="bg-gray-900 text-white hover:bg-black mr-2">Debit</Button>
-                <Button variant="solid" className="bg-white text-teal-500 hover:bg-gray-100">Deposit</Button>
+                <Button variant="solid" className=" bg-teal-900 text-white hover:bg-gray-800">Deposit</Button>
               </div>
             </CardContent>
           </Card>

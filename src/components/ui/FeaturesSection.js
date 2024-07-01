@@ -32,18 +32,18 @@ const FeaturesSection = () => (
         </Card>
         <Card className="bg-[#1e9eac]">
           <CardHeader>
-            <CardTitle>User- Interface</CardTitle>
+            <CardTitle>trustCard</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Enjoy a seamless and intuitive trading experience.</p>
+            <p>Boarderless Payments. Earn cashback when you transact with trustCard</p>
           </CardContent>
         </Card>
         <Card className="bg-[#1e9eac]">
           <CardHeader>
-            <CardTitle>-Friendly Interface</CardTitle>
+            <CardTitle>trustCoin</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Enjoy a seamless and intuitive trading experience.</p>
+            <p>Tired of the market volatility? Look no further! trustCoin is a revolutionary stable coin pegged to the value of gold. Safe and reliable store of value..</p>
           </CardContent>
         </Card>
       </div>
