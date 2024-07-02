@@ -30,21 +30,21 @@ const Header = () => {
     <header className="bg-white dark:bg-gray-800 shadow fixed top-0 w-full z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <a>TrustBank</a>
           </Link>
         </div>
         <div className="hidden md:flex space-x-4 items-center">
-          <Link href="/dashboard">
+          <Link href="/dashboard" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Dashboard</a>
           </Link>
-          <Link href="/markets">
+          <Link href="/markets" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Markets</a>
           </Link>
-          <Link href="/wallet">
+          <Link href="/wallet" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Wallet</a>
           </Link>
-          <Link href="/calculator">
+          <Link href="/calculator" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Calculator</a>
           </Link>
           <div className="relative" ref={dropdownRef}>
@@ -55,22 +55,22 @@ const Header = () => {
               <div className="absolute bg-white dark:bg-gray-800 shadow-md mt-2 rounded z-10">
                 <ul className="py-2">
                   <li>
-                    <Link href="/vision">
+                    <Link href="/vision" legacyBehavior>
                       <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Vision</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/mission">
+                    <Link href="/mission" legacyBehavior>
                       <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Mission</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/company">
+                    <Link href="/company" legacyBehavior>
                       <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Company</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/blog">
+                    <Link href="/blog" legacyBehavior>
                       <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Blog</a>
                     </Link>
                   </li>
@@ -78,23 +78,23 @@ const Header = () => {
       </div>
             )}
           </div>
-          <Link href="/contact">
+          <Link href="/contact" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Contact</a>
           </Link>
-          <Link href="/faq">
+          <Link href="/faq" legacyBehavior>
             <a className="text-gray-800 dark:text-white">FAQ</a>
           </Link>
-          <Link href="/settings">
+          <Link href="/settings" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Settings</a>
           </Link>
         {user ? (
             <button onClick={logout} className="text-gray-800 dark:text-white">Logout</button>
           ) : (
             <div>
-              <Link href="/signin">
+              <Link href="/signin" legacyBehavior>
                 <a className="text-gray-800 dark:text-white">Sign In</a>
               </Link>
-              <Link href="/signup">
+              <Link href="/signup" legacyBehavior>
                 <a className="text-gray-800 dark:text-white ml-4">Sign Up</a>
               </Link>
             </div>

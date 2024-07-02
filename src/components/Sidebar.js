@@ -11,7 +11,7 @@ const Sidebar = () => {
           <span role="img" aria-label="toggle-dark-mode">🌗</span>
         </button>
       </div>
-      <Link href="/dashboard">
+      <Link href="/dashboard" legacyBehavior>
         <span className="block py-2 text-xl cursor-pointer">Dashboard</span>
       </Link>
     </aside>

@@ -1,5 +1,4 @@
 // src/components/ui/MobileMenu.js
-
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -35,7 +34,6 @@ const MobileMenu = () => {
     { name: 'Contact', path: '/contact' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Settings', path: '/settings' },
-    { name: 'Profile', path: '/profile' },
   ];
 
   return (
@@ -44,7 +42,7 @@ const MobileMenu = () => {
         {isOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
       </button>
       {isOpen && (
-        <div className="absolute top-0 left-0 w-48 bg-white dark:bg-gray-800 shadow-md z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div className="absolute top-0 right-0 w-48 bg-white dark:bg-gray-800 shadow-md z-50">
           <nav className="flex flex-col p-4 text-left">
             {pages.map((page) => (
               page.path !== router.pathname && (

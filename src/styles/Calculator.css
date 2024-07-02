@@ -1,0 +1,37 @@
+/* styles/Calculator.css */
+.select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 1rem;
+  }
+  
+  .select select {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #001f54;
+    background-color: #e6f0ff;
+    border: 1px solid #001f54;
+    border-radius: 0.25rem;
+    appearance: none;
+    cursor: pointer;
+  }
+  
+  .select:after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #001f54;
+  }
+  
+  .select select:focus {
+    outline: none;
+    border-color: #0056b3;
+  }
+  

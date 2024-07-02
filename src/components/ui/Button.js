@@ -1,15 +1,8 @@
 // src/components/ui/Button.js
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({
-  variant = 'solid',
-  size = 'medium',
-  children,
-  className = '',
-  ...props
-}) => {
+const Button = ({ variant = 'solid', size = 'medium', children, className = '', ...props }) => {
   let baseStyles = 'py-2 px-4 rounded focus:outline-none';
   let sizeStyles = {
     small: 'text-sm',

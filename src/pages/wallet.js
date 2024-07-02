@@ -1,8 +1,9 @@
+// src/pages/wallet.js
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
 import Notification from '@/components/ui/Notification';
 import QRCode from 'qrcode.react';
 
