@@ -75,7 +75,7 @@ const Header = () => {
                     </Link>
                   </li>
                 </ul>
-              </div>
+      </div>
             )}
           </div>
           <Link href="/contact">
@@ -87,7 +87,7 @@ const Header = () => {
           <Link href="/settings">
             <a className="text-gray-800 dark:text-white">Settings</a>
           </Link>
-          {user ? (
+        {user ? (
             <button onClick={logout} className="text-gray-800 dark:text-white">Logout</button>
           ) : (
             <div>
@@ -98,8 +98,8 @@ const Header = () => {
                 <a className="text-gray-800 dark:text-white ml-4">Sign Up</a>
               </Link>
             </div>
-          )}
-        </div>
+        )}
+      </div>
         <MobileMenu />
       </div>
     </header>
