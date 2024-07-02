@@ -1,11 +1,20 @@
-// src/pages/calculator.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
+import Spinner from '@/components/ui/Spinner';
 import Image from 'next/image';
 import '../styles/Calculator.css'; // Correct import for the CSS file
+
+const currencyMap = {
+  BTC: 'bitcoin',
+  ETH: 'ethereum',
+  'USDT (ERC20)': 'tether',
+  'USDT (TRC20)': 'tether'
+};
+
+let lastRequestTime = 0;
 
 export default function Calculator() {
   const [currency, setCurrency] = useState('BTC');
@@ -24,17 +33,29 @@ export default function Calculator() {
   }, [currency, amount, inputError]);
 
   const fetchExchangeRate = async () => {
+    const now = Date.now();
+    if (now - lastRequestTime < 1000) { // 1 second throttle
+      setError('Please wait before making another request.');
+      return;
+    }
+    lastRequestTime = now;
+
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${currency.toLowerCase()}&vs_currencies=usd,ngn`
-      );
-      const rate = response.data[currency.toLowerCase()];
+      const currencyId = currencyMap[currency];
+      const apiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${currencyId}&vs_currencies=usd,ngn`;
+      const response = await axios.get(`http://localhost:3001/proxy?url=${encodeURIComponent(apiUrl)}`);
+      const data = response.data;
+      console.log('API Response:', data);
+      const rate = data[currencyId];
+      if (!rate) {
+        throw new Error('Invalid currency or response format');
+      }
       setExchangeRate(rate);
       calculateNgnValue(rate);
     } catch (error) {
-      setError('Error fetching exchange rate. Please try again later.');
+      setError(`Error fetching exchange rate. Please try again later. (${error.message})`);
       console.error('Error fetching exchange rate:', error);
     } finally {
       setLoading(false);
@@ -112,7 +133,7 @@ export default function Calculator() {
                 {inputError && <p className="text-red-500">{inputError}</p>}
               </div>
               {loading ? (
-                <p>Loading...</p>
+                <Spinner />
               ) : error ? (
                 <p className="text-red-500">{error}</p>
               ) : exchangeRate && (
@@ -126,7 +147,7 @@ export default function Calculator() {
             </div>
           </div>
           <div className="mt-12 md:mt-0 md:w-1/2">
-            <Image src="/images/calculator-illustration.svg" alt="Calculator Illustration" width={600} height={600} className="mx-auto" />
+            <Image src="/images/calculator-illustration.svg" alt="Calculator Illustration" width={400} height={400} className="mx-auto" />
           </div>
         </section>
         <section className="text-center mt-12">

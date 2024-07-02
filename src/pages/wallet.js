@@ -72,6 +72,39 @@ const Wallet = () => {
     <div className="container mx-auto py-8">
       <h2 className="text-lg font-bold">Wallet</h2>
       
+      <Card className="mb-4 mt-2 bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle>Buy/Sell Cryptocurrency</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form className="space-y-4">
+                <div className="flex space-x-4">
+                  <Button variant="solid" className="w-full bg-teal-500 text-white hover:bg-teal-600 hover:text-black">Buy</Button>
+                  <Button variant="outline" className="w-full text-white hover:bg-teal-600 hover:text-black">Sell</Button>
+                </div>
+                <div>
+                  <label className="block text-gray-700  text-sm font-bold mb-2" htmlFor="crypto">
+                    Coin
+                  </label>
+                  <select id="crypto" name="crypto" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
+                    <option>Bitcoin (BTC)</option>
+                    <option>Ethereum (ETH)</option>
+                    <option>Tether (USDT)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="amount">
+                    Amount
+                  </label>
+                  <input type="number" id="amount" name="amount" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
+                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600">
+                  Trade
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
       <Card className="mb-4">
         <CardHeader>
           <CardTitle>Receive Cryptocurrency</CardTitle>
@@ -113,7 +146,7 @@ const Wallet = () => {
               </select>
             </div>
             <div className="mb-4">
-              <Label htmlFor="address">Recipient's Address</Label>
+              <Label htmlFor="address">Recipient&apos;s Address</Label>
               <Input
                 type="text"
                 id="address"

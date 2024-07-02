@@ -34,6 +34,7 @@
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.7",
+    "request": "^2.88.2",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "tailwindcss-animate": "^1.0.7",

@@ -1,8 +1,10 @@
 // tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+
+
 import { fontFamily } from "tailwindcss/defaultTheme";
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const tailwindConfig = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -82,3 +84,6 @@ export default {
     },
   },
 };
+
+
+export default tailwindConfig

@@ -1,18 +1,18 @@
-// src/pages/login.js
+// src/pages/signup.js
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -21,18 +21,28 @@ const Login = () => {
       return;
     }
 
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
-      await login({ email, password }, rememberMe);
+      await signup({ email, password });
       router.push('/dashboard');
     } catch (error) {
-      setError('Login failed, please check your credentials and try again.');
+      setError('Signup failed, please try again.');
     }
   };
 
   return (
-    <div className="flex flex-col h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-500">
-      <form className="bg-white p-6 rounded shadow-md form-container" onSubmit={handleLogin}>
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div className="flex flex-col h-screen items-center justify-center bg-gradient-to-r from-purple-400 to-pink-500">
+      <form className="bg-white p-6 rounded shadow-md form-container" onSubmit={handleSignup}>
+        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -60,33 +70,31 @@ const Login = () => {
             required
           />
         </div>
-        <div className="mb-4 flex items-center">
-          <input
-            type="checkbox"
-            id="rememberMe"
-            className="mr-2"
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
-          />
-          <label htmlFor="rememberMe" className="text-sm font-medium text-gray-700">
-            Remember Me
+        <div className="mb-4">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+            Confirm Password
           </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
         </div>
         <button
           type="submit"
           className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-300"
         >
-          Login
+          Sign Up
         </button>
         <p className="mt-4 text-center">
-          Don&apos;t have an account? <Link href="/signup" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Sign Up</a></Link>
-        </p>
-        <p className="mt-2 text-center">
-          <Link href="/forgot-password" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Forgot Password?</a></Link>
+          Already have an account? <Link href="/signin" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Login</a></Link>
         </p>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

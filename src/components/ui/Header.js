@@ -43,7 +43,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full bg-white shadow-md z-50">
+    <header className="fixed w-full dark:bg-blue-1000 shadow-md z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" legacyBehavior>
           <a className="text-xl font-bold">trustBank</a>

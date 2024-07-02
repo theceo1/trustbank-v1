@@ -1,5 +1,4 @@
-// src/components/ui/Header.js
-
+// src/components/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
@@ -27,11 +26,11 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow fixed top-0 w-full z-50">
+    <header className="bg-teal-500 dark:bg-gray-800 shadow fixed top-0 w-full z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold">
           <Link href="/" legacyBehavior>
-            <a>TrustBank</a>
+            <a>trustBank</a>
           </Link>
         </div>
         <div className="hidden md:flex space-x-4 items-center">
@@ -75,7 +74,7 @@ const Header = () => {
                     </Link>
                   </li>
                 </ul>
-      </div>
+              </div>
             )}
           </div>
           <Link href="/contact" legacyBehavior>
@@ -87,8 +86,13 @@ const Header = () => {
           <Link href="/settings" legacyBehavior>
             <a className="text-gray-800 dark:text-white">Settings</a>
           </Link>
-        {user ? (
-            <button onClick={logout} className="text-gray-800 dark:text-white">Logout</button>
+          {user ? (
+            <>
+              <Link href="/profile" legacyBehavior>
+                <a className="text-gray-800 dark:text-white">Profile</a>
+              </Link>
+              <button onClick={logout} className="text-gray-800 dark:text-white">Logout</button>
+            </>
           ) : (
             <div>
               <Link href="/signin" legacyBehavior>
@@ -98,8 +102,8 @@ const Header = () => {
                 <a className="text-gray-800 dark:text-white ml-4">Sign Up</a>
               </Link>
             </div>
-        )}
-      </div>
+          )}
+        </div>
         <MobileMenu />
       </div>
     </header>
