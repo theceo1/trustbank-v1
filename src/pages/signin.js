@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-500">
-      <form className="bg-white p-6 rounded shadow-md form-container" onSubmit={handleLogin}>
+      <form className="bg-white text-gray-800 p-6 rounded shadow-md form-container" onSubmit={handleLogin}>
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
@@ -82,7 +82,7 @@ const Login = () => {
           Don&apos;t have an account? <Link href="/signup" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Sign Up</a></Link>
         </p>
         <p className="mt-2 text-center">
-          <Link href="/forgot-password" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Forgot Password?</a></Link>
+          <Link href="/ForgotPassword" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Forgot Password?</a></Link>
         </p>
       </form>
     </div>

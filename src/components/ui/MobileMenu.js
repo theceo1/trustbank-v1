@@ -1,61 +1,20 @@
-// src/components/ui/MobileMenu.js
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
 
-const MobileMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef();
-  const router = useRouter();
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const pages = [
-    { name: 'Dashboard', path: '/dashboard' },
-    { name: 'Markets', path: '/markets' },
-    { name: 'Wallet', path: '/wallet' },
-    { name: 'Calculator', path: '/calculator' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'Settings', path: '/settings' },
-  ];
-
+const MobileMenu = ({ isOpen, toggleMenu }) => {
   return (
-    <div className="md:hidden relative" ref={menuRef}>
-      <button onClick={toggleMenu} className="text-gray-700 dark:text-gray-300 focus:outline-none">
-        {isOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
-      </button>
-      {isOpen && (
-        <div className="absolute top-0 right-0 w-48 bg-white dark:bg-gray-800 shadow-md z-50">
-          <nav className="flex flex-col p-4 text-left">
-            {pages.map((page) => (
-              page.path !== router.pathname && (
-                <Link key={page.name} href={page.path} legacyBehavior>
-                  <a onClick={() => setIsOpen(false)} className="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">
-                    {page.name}
-                  </a>
-                </Link>
-              )
-            ))}
-          </nav>
-        </div>
-      )}
+    <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+      <nav className="flex flex-col space-y-2">
+        <Link href="/dashboard" legacyBehavior><a onClick={toggleMenu}>Dashboard</a></Link>
+        <Link href="/markets" legacyBehavior><a onClick={toggleMenu}>Markets</a></Link>
+        <Link href="/wallet" legacyBehavior><a onClick={toggleMenu}>Wallet</a></Link>
+        <Link href="/contact" legacyBehavior><a onClick={toggleMenu}>Contact</a></Link>
+        <Link href="/faq" legacyBehavior><a onClick={toggleMenu}>FAQ</a></Link>
+        <Link href="/settings" legacyBehavior><a onClick={toggleMenu}>Settings</a></Link>
+        <Link href="/about" legacyBehavior><a onClick={toggleMenu}>About</a></Link>
+        <Link href="/sign-in" legacyBehavior><a onClick={toggleMenu}>Sign In</a></Link>
+        <Link href="/sign-up" legacyBehavior><a onClick={toggleMenu}>Sign Up</a></Link>
+      </nav>
     </div>
   );
 };

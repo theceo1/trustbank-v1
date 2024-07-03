@@ -1,87 +1,152 @@
-// src/components/ui/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import MobileMenu from './MobileMenu';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { CSSTransition } from 'react-transition-group';
 
 const Header = () => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef();
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const menuRef = useRef(null);
+  const aboutDropdownRef = useRef(null);
   const router = useRouter();
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleAboutDropdown = () => {
+    setAboutDropdownOpen(!isAboutDropdownOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMobileMenuOpen(false);
+    }
+    if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
+      setAboutDropdownOpen(false);
+    }
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
+    if (isMobileMenuOpen || isAboutDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [isMobileMenuOpen, isAboutDropdownOpen]);
 
-  const pages = [
-    { name: 'Dashboard', path: '/dashboard' },
-    { name: 'Markets', path: '/markets' },
-    { name: 'Wallet', path: '/wallet' },
-    { name: 'Calculator', path: '/calculator' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'Settings', path: '/settings' },
-  ];
-
-  const aboutPages = [
-    { name: 'Vision', path: '/vision' },
-    { name: 'Mission', path: '/mission' },
-    { name: 'Company', path: '/company' },
-    { name: 'Blog', path: '/blog' },
-  ];
+  const isHomePage = router.pathname === '/';
 
   return (
-    <header className="fixed w-full dark:bg-blue-1000 shadow-md z-50">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" legacyBehavior>
-          <a className="text-xl font-bold">trustBank</a>
-        </Link>
-        <nav className="hidden md:flex space-x-4">
-          {pages.map((page) => (
-            page.path !== router.pathname && (
-              <Link key={page.name} href={page.path} legacyBehavior>
-                <a className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">
-                  {page.name}
-                </a>
-              </Link>
-            )
-          ))}
-          <div className="relative" ref={dropdownRef}>
+    <header className="bg-black text-white p-4 flex justify-between items-center fixed w-full top-0 z-50 shadow-lg">
+      <Link href="/" legacyBehavior>
+        <a className="font-bold text-lg">trustBank</a>
+      </Link>
+      <nav className="hidden md:flex space-x-4">
+        {!isHomePage ? (
+          <>
+            <div className="relative" ref={aboutDropdownRef}>
+              <button
+                onClick={toggleAboutDropdown}
+                className="hover:text-teal-500"
+              >
+                About
+              </button>
+              {isAboutDropdownOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg z-50">
+                  <nav className="flex flex-col p-4 text-left">
+                    <Link href="/vision" legacyBehavior><a className="block hover:text-teal-500">Vision</a></Link>
+                    <Link href="/mission" legacyBehavior><a className="block hover:text-teal-500">Mission</a></Link>
+                    <Link href="/company" legacyBehavior><a className="block hover:text-teal-500">Company</a></Link>
+                    <Link href="/blog" legacyBehavior><a className="block hover:text-teal-500">Blog</a></Link>
+                  </nav>
+                </div>
+              )}
+            </div>
+            <Link href="/dashboard" legacyBehavior><a className="hover:text-teal-500">Dashboard</a></Link>
+            <Link href="/markets" legacyBehavior><a className="hover:text-teal-500">Markets</a></Link>
+            <Link href="/wallet" legacyBehavior><a className="hover:text-teal-500">Wallet</a></Link>
+            <Link href="/contact" legacyBehavior><a className="hover:text-teal-500">Contact</a></Link>
+            <Link href="/faq" legacyBehavior><a className="hover:text-teal-500">FAQ</a></Link>
+            <Link href="/settings" legacyBehavior><a className="hover:text-teal-500">Settings</a></Link>
+            <Link href="/sign-in" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
+            <Link href="/sign-up" legacyBehavior><a className="hover:text-teal-500">Sign Up</a></Link>
+          </>
+        ) : (
+          <div className="relative" ref={aboutDropdownRef}>
             <button
-              onClick={toggleDropdown}
-              className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500 focus:outline-none"
+              onClick={toggleAboutDropdown}
+              className="hover:text-teal-500"
             >
               About
             </button>
-            {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg z-50">
+            {isAboutDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg z-50">
                 <nav className="flex flex-col p-4 text-left">
-                  {aboutPages.map((page) => (
-                    <Link key={page.name} href={page.path} legacyBehavior>
-                      <a onClick={() => setDropdownOpen(false)} className="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">
-                        {page.name}
-                      </a>
-                    </Link>
-                  ))}
+                  <Link href="/vision" legacyBehavior><a className="block hover:text-teal-500">Vision</a></Link>
+                  <Link href="/mission" legacyBehavior><a className="block hover:text-teal-500">Mission</a></Link>
+                  <Link href="/company" legacyBehavior><a className="block hover:text-teal-500">Company</a></Link>
+                  <Link href="/blog" legacyBehavior><a className="block hover:text-teal-500">Blog</a></Link>
                 </nav>
               </div>
             )}
           </div>
-        </nav>
-        <MobileMenu />
-      </div>
+        )}
+      </nav>
+      <button className="md:hidden" onClick={toggleMobileMenu}>
+        {isMobileMenuOpen ? (
+          <XIcon className="h-6 w-6 text-white" />
+        ) : (
+          <MenuIcon className="h-6 w-6 text-white" />
+        )}
+      </button>
+      <CSSTransition
+        in={isMobileMenuOpen}
+        timeout={300}
+        classNames="mobile-menu"
+        unmountOnExit
+      >
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-end">
+          <div ref={menuRef} className="bg-white w-64 p-4 space-y-4">
+            {!isHomePage ? (
+              <>
+                <Link href="/dashboard" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Dashboard</a></Link>
+                <Link href="/markets" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Markets</a></Link>
+                <Link href="/wallet" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Wallet</a></Link>
+                <Link href="/contact" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Contact</a></Link>
+                <Link href="/faq" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>FAQ</a></Link>
+                <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
+                <Link href="/sign-in" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
+                <Link href="/sign-up" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
+              </>
+            ) : (
+              <div className="relative" ref={aboutDropdownRef}>
+                <button
+                  onClick={toggleAboutDropdown}
+                  className="hover:text-teal-500"
+                >
+                  About
+                </button>
+                {isAboutDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg z-50">
+                    <nav className="flex flex-col p-4 text-left">
+                      <Link href="/vision" legacyBehavior><a className="block hover:text-teal-500">Vision</a></Link>
+                      <Link href="/mission" legacyBehavior><a className="block hover:text-teal-500">Mission</a></Link>
+                      <Link href="/company" legacyBehavior><a className="block hover:text-teal-500">Company</a></Link>
+                      <Link href="/blog" legacyBehavior><a className="block hover:text-teal-500">Blog</a></Link>
+                    </nav>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </CSSTransition>
     </header>
   );
 };

@@ -41,7 +41,7 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center bg-gradient-to-r from-purple-400 to-pink-500">
-      <form className="bg-white p-6 rounded shadow-md form-container" onSubmit={handleSignup}>
+      <form className="bg-white text-gray-800 p-6 rounded shadow-md form-container" onSubmit={handleSignup}>
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">

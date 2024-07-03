@@ -1,16 +1,17 @@
-// src/components/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 import MobileMenu from './MobileMenu';
+import { useAuth } from '@/context/AuthContext';
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
+  const router = useRouter();
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+    setDropdownOpen(!isDropdownOpen);
   };
 
   useEffect(() => {
@@ -25,85 +26,76 @@ const Header = () => {
     };
   }, []);
 
+  const pages = [
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Markets', path: '/markets' },
+    { name: 'Wallet', path: '/wallet' },
+    { name: 'Calculator', path: '/calculator' },
+    { name: 'Contact', path: '/contact' },
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Settings', path: '/settings' },
+  ];
+
+  const aboutPages = [
+    { name: 'Vision', path: '/vision' },
+    { name: 'Mission', path: '/mission' },
+    { name: 'Company', path: '/company' },
+    { name: 'Blog', path: '/blog' },
+  ];
+
   return (
-    <header className="bg-teal-500 dark:bg-gray-800 shadow fixed top-0 w-full z-50">
+    <header className="fixed w-full bg-teal-500 dark:bg-gray-800 shadow-md z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold">
-          <Link href="/" legacyBehavior>
-            <a>trustBank</a>
-          </Link>
-        </div>
-        <div className="hidden md:flex space-x-4 items-center">
-          <Link href="/dashboard" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Dashboard</a>
-          </Link>
-          <Link href="/markets" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Markets</a>
-          </Link>
-          <Link href="/wallet" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Wallet</a>
-          </Link>
-          <Link href="/calculator" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Calculator</a>
-          </Link>
+        <Link href="/" legacyBehavior>
+          <a className="text-xl font-bold text-gray-800 dark:text-white">trustBank</a>
+        </Link>
+        <nav className="hidden md:flex space-x-4">
+          {pages.map((page) => (
+            <Link key={page.name} href={page.path} legacyBehavior>
+              <a className={`py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500 ${router.pathname === page.path ? 'hidden' : ''}`}>
+                {page.name}
+              </a>
+            </Link>
+          ))}
           <div className="relative" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="text-gray-800 dark:text-white focus:outline-none">
+            <button
+              onClick={toggleDropdown}
+              className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500 focus:outline-none"
+            >
               About
             </button>
-            {dropdownOpen && (
-              <div className="absolute bg-white dark:bg-gray-800 shadow-md mt-2 rounded z-10">
-                <ul className="py-2">
-                  <li>
-                    <Link href="/vision" legacyBehavior>
-                      <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Vision</a>
+            {isDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg z-50">
+                <nav className="flex flex-col p-4 text-left">
+                  {aboutPages.map((page) => (
+                    <Link key={page.name} href={page.path} legacyBehavior>
+                      <a onClick={() => setDropdownOpen(false)} className="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">
+                        {page.name}
+                      </a>
                     </Link>
-                  </li>
-                  <li>
-                    <Link href="/mission" legacyBehavior>
-                      <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Mission</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/company" legacyBehavior>
-                      <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Company</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/blog" legacyBehavior>
-                      <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Blog</a>
-                    </Link>
-                  </li>
-                </ul>
+                  ))}
+                </nav>
               </div>
             )}
           </div>
-          <Link href="/contact" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Contact</a>
-          </Link>
-          <Link href="/faq" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">FAQ</a>
-          </Link>
-          <Link href="/settings" legacyBehavior>
-            <a className="text-gray-800 dark:text-white">Settings</a>
-          </Link>
           {user ? (
             <>
               <Link href="/profile" legacyBehavior>
-                <a className="text-gray-800 dark:text-white">Profile</a>
+                <a className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Profile</a>
               </Link>
-              <button onClick={logout} className="text-gray-800 dark:text-white">Logout</button>
+              <button onClick={logout} className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Logout</button>
             </>
           ) : (
-            <div>
+            <>
               <Link href="/signin" legacyBehavior>
-                <a className="text-gray-800 dark:text-white">Sign In</a>
+                <a className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Sign In</a>
               </Link>
               <Link href="/signup" legacyBehavior>
-                <a className="text-gray-800 dark:text-white ml-4">Sign Up</a>
+                <a className="py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Sign Up</a>
               </Link>
-            </div>
+            </>
           )}
-        </div>
+        </nav>
         <MobileMenu />
       </div>
     </header>

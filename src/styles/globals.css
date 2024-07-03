@@ -1,8 +1,4 @@
-/* src/styles/globals.css */
-
-/* src/styles/globals.css */
 @import 'react-toastify/dist/ReactToastify.css';
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -10,9 +6,65 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Roboto', sans-serif;
+.header {
+  @apply bg-black text-white p-4 flex justify-between items-center fixed w-full top-0 z-50 shadow-lg;
 }
+
+.logo {
+  @apply font-bold text-lg;
+}
+
+.menu-button {
+  @apply md:hidden;
+}
+
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.mobile-menu {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-end;
+}
+
+.menu-content {
+  @apply bg-white w-64 p-4 space-y-4;
+}
+
+.menu-link {
+  @apply block text-black;
+}
+
+.menu-link:hover {
+  @apply text-teal-500;
+}
+
+.about-dropdown {
+  @apply bg-white text-black shadow-lg z-50;
+}
+
+.about-dropdown a {
+  @apply block hover:text-teal-500;
+}
+
+
 html {
   @apply bg-white text-black;
 }
@@ -36,9 +88,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Roboto', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
+  margin-top: 60px;
 }
 
 header {
@@ -419,7 +472,6 @@ button:hover {
 }
 
 @layer base {
-  
   body {
     @apply bg-background text-foreground font-body;
   }

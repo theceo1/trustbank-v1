@@ -1,6 +1,4 @@
-// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
-
 
 import { fontFamily } from "tailwindcss/defaultTheme";
 
@@ -85,5 +83,4 @@ const tailwindConfig = {
   },
 };
 
-
-export default tailwindConfig
+export default tailwindConfig;

@@ -1,5 +1,6 @@
 // src/pages/faq.js
 
+import Link from 'next/link';
 import React from 'react';
 
 const FAQ = () => {
@@ -16,7 +17,7 @@ const FAQ = () => {
         <div>
           <h2 className="text-xl font-bold">How can I create an account?</h2>
           <p className="text-gray-500 dark:text-gray-400">
-            You can create an account by visiting our <a href="/signup" className="text-teal-500 hover:underline">Sign Up</a> page and following the instructions.
+            You can create an account by visiting our <Link href="/signup" legacyBehavior></Link><a  className="text-teal-500 hover:underline">Sign Up</a> page and following the instructions.
           </p>
         </div>
         <div>

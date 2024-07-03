@@ -1,58 +1,97 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '@/context/AuthContext';
+import React from 'react';
+import Button from '@/components/ui/Button';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import Link from 'next/link';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { login } = useAuth();
-  const router = useRouter();
+const HeroSection = () => (
+  <div className="hero bg-[#090f2d] text-white py-16 px-4">
+    <div className="container mx-auto text-center">
+      <h1 className="text-4xl font-bold mt-0">trustBank</h1>
+      <p className="text-sm mb-2">TRADE | SPEND | <span className="text-teal-500">EARN</span></p>
+      <Button variant="solid" className="bg-teal text-teal-500 hover:bg-gray-100">Get Started</Button>
+    </div>
+  </div>
+);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const userData = { email, name: 'User' };
-    login(userData);
-  };
-
-  return (
-    <div className="flex flex-col h-screen items-center justify-center">
-      <form className="bg-white p-6 rounded shadow-md form-container" onSubmit={handleLogin}>
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
+const FeaturesSection = () => (
+  <div className="features py-16 px-4 bg-[#090f2d]">
+    <div className="container mx-auto text-center">
+      <h2 className="text-white text-3xl font-bold mb-8">Features</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-700">
+        <Card className="bg-[#1e9eac]">
+          <CardHeader>
+            <CardTitle>Secure Trading</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Experience top-notch security for all your transactions.</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-[#1e9eac]">
+          <CardHeader>
+            <CardTitle>Real-Time Data</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Get real-time market data and stay ahead in the game.</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-[#1e9eac]">
+          <CardHeader>
+            <CardTitle>User-Friendly Interface</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Enjoy a seamless and intuitive trading experience.</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-[#1e9eac]">
+          <CardHeader>
+            <CardTitle>trustCard</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Borderless Payments. Earn cashback when you transact with trustCard.</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-[#1e9eac]">
+          <CardHeader>
+            <CardTitle>trustCoin</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Tired of market volatility? Look no further! trustCoin is a revolutionary stable coin pegged to the value of gold. A safe and reliable store of value.</p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+);
+const Footer = () => (
+  <footer className="bg-black text-white py-8 px-4">
+    <div className="container mx-auto text-center">
+      <p>&copy; {new Date().getFullYear()} trustBank. All rights reserved.</p>
+      <div className="flex justify-center space-x-4 mt-4">
+        <Link href="/about" legacyBehavior><a className="text-teal-500 hover:text-white">About</a></Link>
+        <Link href="/contact" legacyBehavior><a className="text-teal-500 hover:text-white">Contact</a></Link>
+        <Link href="/faq" legacyBehavior><a className="text-teal-500 hover:text-white">FAQ</a></Link>
+      </div>
+      <div className="mt-8">
+        <h3 className="text-xl font-bold mb-4">Join our Waiting List</h3>
+        <form className="flex justify-center">
           <input
             type="email"
-            id="email"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm input-field"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            placeholder="Enter your email"
+            className="px-4 py-2 text-black rounded-l-md focus:outline-none"
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm input-field"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md button"
-        >
-          Login
-        </button>
-      </form>
+          <Button variant="solid" className="bg-teal-500 text-white hover:bg-teal-600 rounded-r-md">Subscribe</Button>
+        </form>
+      </div>
     </div>
-  );
-};
+  </footer>
+);
 
-export default Login;
+const HomePage = () => (
+  <>
+    <HeroSection />
+    <FeaturesSection />
+    <Footer />
+  </>
+);
+
+export default HomePage;

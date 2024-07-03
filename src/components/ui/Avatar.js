@@ -1,6 +1,7 @@
 // src/components/ui/avatar.js
 import React from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 export const Avatar = ({ children, className, ...props }) => {
   return <div className={`avatar ${className}`} {...props}>{children}</div>;
@@ -12,7 +13,7 @@ Avatar.propTypes = {
 };
 
 export const AvatarImage = ({ src, alt }) => {
-  return <img src={src} alt={alt} className="avatar-image" />;
+  return <Image src={src} alt={alt} className="avatar-image" />;
 };
 
 AvatarImage.propTypes = {
