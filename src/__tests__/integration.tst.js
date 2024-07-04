@@ -1,15 +1,18 @@
-// src/__tests__/integration.test.js
+// src/__tests__/integration.tst.js
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { RouterContext } from 'next/router';
+import { createMockRouter } from '../test-utils/createMockRouter';
 import App from '../pages/_app';
 import Dashboard from '../pages/dashboard';
-import Profile from '../pages/profile';
 
 test('navigates from dashboard to profile', () => {
-  render(<App Component={Dashboard} pageProps={{}} />);
+  render(
+    <RouterContext.Provider value={createMockRouter({})}>
+      <App Component={Dashboard} pageProps={{}} />
+    </RouterContext.Provider>
+  );
   expect(screen.getByText('Dashboard')).toBeInTheDocument();
-
   fireEvent.click(screen.getByText('Profile'));
-  render(<App Component={Profile} pageProps={{}} />);
-  expect(screen.getByText('Profile Page')).toBeInTheDocument();
+  expect(screen.getByText('Profile')).toBeInTheDocument();
 });

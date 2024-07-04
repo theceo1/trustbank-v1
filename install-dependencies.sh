@@ -18,3 +18,5 @@ npm install framer-motion
 
 # Install any other utilities and tools you might need
 npm install axios react-query
+
+echo "All dependencies have been installed."

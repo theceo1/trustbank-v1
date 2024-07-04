@@ -1,3 +1,5 @@
+// src/pages/calculator.js
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Button from '@/components/ui/Button';
@@ -5,7 +7,7 @@ import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import Spinner from '@/components/ui/Spinner';
 import Image from 'next/image';
-import '../styles/Calculator.css'; // Correct import for the CSS file
+import '../styles/Calculator.css';
 
 const currencyMap = {
   BTC: 'bitcoin',
@@ -25,6 +27,12 @@ export default function Calculator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [inputError, setInputError] = useState(null);
+
+  const calculateNgnValue = useCallback((rate) => {
+    const usdToNgnRate = rate.ngn / rate.usd; // Corrected the conversion rate
+    const ngnEquivalent = (amount * usdToNgnRate).toFixed(2);
+    setNgnValue(ngnEquivalent);
+  }, [amount]);
 
   const fetchExchangeRate = useCallback(async () => {
     const now = Date.now();
@@ -54,13 +62,7 @@ export default function Calculator() {
     } finally {
       setLoading(false);
     }
-  }, [calculateNgnValue, currency]);
-
-  const calculateNgnValue = useCallback((rate) => {
-    const usdToNgnRate = rate.usd / rate.ngn;
-    const ngnEquivalent = (amount / usdToNgnRate).toFixed(2);
-    setNgnValue(ngnEquivalent);
-  }, [amount]);
+  }, [currency, calculateNgnValue]);
 
   const handleAmountChange = useCallback((e) => {
     const value = e.target.value;
@@ -76,12 +78,45 @@ export default function Calculator() {
     if (amount && currency && !inputError) {
       fetchExchangeRate();
     }
-  }, [currency, amount, inputError, fetchExchangeRate, calculateNgnValue]);
+  }, [currency, amount, inputError, fetchExchangeRate]);
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ... rest of the component */}
+      <h1>RATE CALCULATOR</h1>
+      <div>
+        <Label htmlFor="currency">Currency</Label>
+        <select
+          id="currency"
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+        >
+          {Object.keys(currencyMap).map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <Label htmlFor="amount">Amount</Label>
+        <Input
+          id="amount"
+          type="number"
+          value={amount}
+          onChange={handleAmountChange}
+        />
+        {inputError && <p className="error">{inputError}</p>}
+      </div>
+      <Button onClick={() => setCurrency('ETH')}>ETH</Button>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <p>Exchange Rate (USD to NGN): {exchangeRate ? exchangeRate.ngn : 'N/A'}</p>
+          <p>NGN Equivalent: {ngnValue}</p>
+        </div>
+      )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }
-
