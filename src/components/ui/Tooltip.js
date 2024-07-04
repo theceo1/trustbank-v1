@@ -1,18 +1,32 @@
-import React from 'react';
+// src/components/ui/Tooltip.js
+
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Tooltip = ({ children, text }) => (
-  <div className="relative flex items-center group">
-    {children}
-    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-full mb-2 w-max bg-gray-700 text-white text-sm py-1 px-2 rounded shadow-lg hidden group-hover:block">
-      {text}
+const Tooltip = ({ text, children }) => {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="relative flex items-center">
+      <div
+        className="cursor-pointer"
+        onMouseEnter={() => setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+      >
+        {children}
+      </div>
+      {visible && (
+        <div className="absolute bottom-full mb-2 px-4 py-2 bg-black text-white text-xs rounded-lg shadow-lg">
+          {text}
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 Tooltip.propTypes = {
-  children: PropTypes.node.isRequired,
   text: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Tooltip;

@@ -10,7 +10,8 @@ test('should render the calculator component', () => {
 
 test('should update currency when a currency button is clicked', () => {
   render(<Calculator />);
-  fireEvent.click(screen.getByText(/eth/i));
+  const ethButton = screen.getAllByText(/eth/i).find(el => el.tagName === 'BUTTON');
+  fireEvent.click(ethButton);
   expect(screen.getByText(/eth/i).classList.contains('text-teal-500')).toBe(true);
 });
 
@@ -22,4 +23,3 @@ test('should switch currency and recalculate correctly', async () => {
   await waitFor(() => expect(screen.getByText(/ngn/i)).toBeInTheDocument());
   expect(screen.getByText(/1 usd =/i)).toHaveTextContent('1 USD = 670000');
 });
-

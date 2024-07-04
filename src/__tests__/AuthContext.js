@@ -1,7 +1,7 @@
 // src/__tests__/AuthContext.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { RouterContext } from 'next/router';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { createMockRouter } from '../test-utils/createMockRouter';
 import AuthProvider from '@/context/AuthContext';
 

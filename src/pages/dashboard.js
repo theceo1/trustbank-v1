@@ -19,6 +19,9 @@ const Dashboard = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [tooltipContent, setTooltipContent] = useState('');
+  const [cryptoAmount, setCryptoAmount] = useState('');
+  const [fiatAmount, setFiatAmount] = useState('');
+  const [conversionResult, setConversionResult] = useState('');
 
   useEffect(() => {
     socket.on('marketData', (data) => {
@@ -35,6 +38,17 @@ const Dashboard = () => {
     };
   }, []);
 
+  const handleTrade = (e) => {
+    e.preventDefault();
+    // Handle trade logic here
+  };
+
+  const handleCalculator = (e) => {
+    e.preventDefault();
+    // Handle calculator logic here
+    setConversionResult(`Converted ${cryptoAmount} to ${fiatAmount}`);
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-8">
@@ -42,67 +56,67 @@ const Dashboard = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1 space-y-6">
-          <Card className="card-balance shadow-lg">
+          <Card className="card-balance shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardHeader>
-              <CardTitle>Account Balance</CardTitle>
+              <CardTitle className="text-black">Account Balance</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
+              <p className="text-2xl text-black">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
               <div className="flex justify-end mt-4">
-                <Button variant="solid" className=" bg-teal-900 text-white hover:bg-gray-800">Deposit</Button>
+                <Button variant="solid" className="bg-teal-900 text-white hover:bg-gray-800 rounded-xl">Deposit</Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white shadow-lg">
+          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardHeader>
-              <CardTitle>Trade</CardTitle>
+              <CardTitle className="text-black">Trade</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleTrade}>
                 <div className="flex space-x-4">
-                  <Button variant="solid" className="w-full bg-teal-500 text-white hover:bg-teal-600">Buy</Button>
-                  <Button variant="outline" className="w-full border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white">Sell</Button>
+                  <Button variant="solid" className="w-full bg-teal-500 text-white hover:bg-teal-600 rounded-xl">Buy</Button>
+                  <Button variant="outline" className="w-full border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded-xl">Sell</Button>
                 </div>
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="crypto">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="crypto">
                     Coin
                   </label>
-                  <select id="crypto" name="crypto" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
+                  <select id="crypto" name="crypto" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
                     <option>Bitcoin (BTC)</option>
                     <option>Ethereum (ETH)</option>
                     <option>Tether (USDT)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="amount">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
                     Amount
                   </label>
-                  <input type="number" id="amount" name="amount" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline" />
+                  <input type="number" id="amount" name="amount" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline" />
                 </div>
-                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600">
+                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600 rounded-xl">
                   Trade
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          <Card className="bg-white shadow-lg">
+          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardHeader>
-              <CardTitle>Recent Transactions</CardTitle>
+              <CardTitle className="text-black">Recent Transactions</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between">
-                  <span>Bitcoin</span>
+                  <span className="text-black">Bitcoin</span>
                   <span className="text-green-500">+$1,250.00</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Ethereum</span>
+                  <span className="text-black">Ethereum</span>
                   <span className="text-red-500">-$750.00</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>USDC</span>
+                  <span className="text-black">USDC</span>
                   <span className="text-green-500">+$500.00</span>
                 </div>
               </div>
@@ -112,9 +126,9 @@ const Dashboard = () => {
 
         <div className="lg:col-span-3 space-y-6">
           <div className="flex justify-end items-center mb-4">
-            <h2 className="text-2xl font-semibold">Market Overview</h2>
+            <h2 className="text-2xl font-semibold text-black">Market Overview</h2>
           </div>
-          <Card className="bg-white shadow-lg">
+          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardContent>
               <Table>
                 <TableHeader>
@@ -141,42 +155,47 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-white shadow-lg">
+          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardHeader>
-              <CardTitle>Crypto to Fiat Calculator</CardTitle>
+              <CardTitle className="text-black">Crypto to Fiat Calculator</CardTitle>
             </CardHeader>
             <CardContent>
-              <form>
+              <form onSubmit={handleCalculator}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="crypto-calc">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="crypto-calc">
                     Cryptocurrency
                   </label>
-                  <select id="crypto-calc" name="crypto-calc" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
+                  <select id="crypto-calc" name="crypto-calc" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
                     <option>Bitcoin</option>
                     <option>Ethereum</option>
                     <option>Tether</option>
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="fiat">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fiat">
                     Fiat Currency
                   </label>
-                  <select id="fiat" name="fiat" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
+                  <select id="fiat" name="fiat" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
                     <option>USD</option>
                     <option>EUR</option>
                     <option>GBP</option>
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" htmlFor="amount-calc">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount-calc">
                     Amount
                   </label>
-                  <input type="number" id="amount-calc" name="amount-calc" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline" />
+                  <input type="number" id="amount-calc" name="amount-calc" value={cryptoAmount} onChange={(e) => setCryptoAmount(e.target.value)} className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline" />
                 </div>
-                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600">
+                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600 rounded-xl">
                   Calculate
                 </Button>
               </form>
+              {conversionResult && (
+                <div className="mt-4 p-4 bg-teal-100 rounded-lg shadow-inner">
+                  <p className="text-black">{conversionResult}</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

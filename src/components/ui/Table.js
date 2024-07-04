@@ -1,40 +1,34 @@
+// src/components/ui/Table.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const Table = ({ children }) => (
-  <table className="min-w-full bg-white">
-    {children}
-  </table>
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white">
+      {children}
+    </table>
+  </div>
 );
 
 const TableHeader = ({ children }) => (
   <thead>
-    {children}
+    <tr className="w-full bg-teal-500 text-white">{children}</tr>
   </thead>
 );
 
 const TableRow = ({ children }) => (
-  <tr>
-    {children}
-  </tr>
+  <tr className="bg-gray-100 border-b">{children}</tr>
 );
 
 const TableHead = ({ children }) => (
-  <th className="py-2 px-4 border-b-2 border-gray-300 text-left text-gray-600">
-    {children}
-  </th>
+  <th className="text-left py-2 px-4 uppercase font-semibold text-sm">{children}</th>
 );
 
-const TableBody = ({ children }) => (
-  <tbody>
-    {children}
-  </tbody>
-);
+const TableBody = ({ children }) => <tbody>{children}</tbody>;
 
 const TableCell = ({ children }) => (
-  <td className="py-2 px-4 border-b border-gray-200">
-    {children}
-  </td>
+  <td className="text-left py-2 px-4">{children}</td>
 );
 
 Table.propTypes = {

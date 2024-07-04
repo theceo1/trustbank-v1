@@ -1,4 +1,3 @@
-// src/pages/login.js
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
@@ -23,7 +22,7 @@ const Login = () => {
 
     try {
       await login({ email, password }, rememberMe);
-      router.push('/dashboard');
+      router.push('/');
     } catch (error) {
       setError('Login failed, please check your credentials and try again.');
     }

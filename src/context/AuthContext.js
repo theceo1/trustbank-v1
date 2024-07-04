@@ -1,68 +1,55 @@
-// src/context/AuthContext.js
-import { createContext, useState, useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function useAuth() {
+  return useContext(AuthContext);
+}
+
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser));
-    }
-  }, []);
-
-  const login = (userData, rememberMe) => {
-    setUser(userData);
+  const login = async ({ email, password }, rememberMe) => {
+    // Implement your login logic here
+    // For example, you can call an API and set the user state
+    // await api.login(email, password);
+    setUser({ email });
     if (rememberMe) {
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify({ email }));
     }
-    toast.success('Login successful!');
-    router.push('/dashboard');
   };
 
-  const signup = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    toast.success('Signup successful!');
-    router.push('/dashboard');
+  const signup = async ({ email, password }) => {
+    // Implement your signup logic here
+    // For example, you can call an API and set the user state
+    // await api.signup(email, password);
+    setUser({ email });
   };
 
   const logout = () => {
+    // Implement your logout logic here
+    // For example, you can call an API and clear the user state
+    // await api.logout();
     setUser(null);
     localStorage.removeItem('user');
-    toast.info('Logged out');
-    router.push('/login');
+    router.push('/');
   };
 
-  const resetPassword = async (email) => {
-    // Implement your password reset logic here
-    toast.success(`Password reset email sent to: ${email}`);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const value = {
+    user,
+    login,
+    signup,
+    logout,
   };
 
-  const updateUserProfile = async (updatedProfile) => {
-    // Implement your update profile logic here
-    setUser(updatedProfile);
-    localStorage.setItem('user', JSON.stringify(updatedProfile));
-    toast.success('Profile updated successfully!');
-  };
-
-  const changePassword = async (newPassword) => {
-    // Implement your change password logic here
-    toast.success('Password changed successfully!');
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, signup, logout, resetPassword, updateUserProfile, changePassword }}>
-      {children}
-      <ToastContainer />
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}

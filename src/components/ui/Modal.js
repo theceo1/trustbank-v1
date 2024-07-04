@@ -1,18 +1,21 @@
 // src/components/ui/Modal.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={classNames('fixed inset-0 z-50 overflow-auto bg-smoke-light flex')}>
-      <div className={classNames('relative p-8 bg-white w-full max-w-md m-auto flex-col flex')}>
-        <button onClick={onClose} className="absolute top-0 right-0 p-4">
-          <span className="text-xl">&times;</span>
-        </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
         {children}
+        <button
+          onClick={onClose}
+          className="mt-4 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600"
+        >
+          Close
+        </button>
       </div>
     </div>
   );

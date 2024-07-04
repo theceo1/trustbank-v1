@@ -1,4 +1,4 @@
-// File path: src/pages/markets/Markets.js
+// File path: src/pages/markets.js
 
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';

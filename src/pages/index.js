@@ -1,3 +1,5 @@
+// src/pages/index.js
+
 import React from 'react';
 import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -8,7 +10,11 @@ const HeroSection = () => (
     <div className="container mx-auto text-center">
       <h1 className="text-4xl font-bold mt-0">trustBank</h1>
       <p className="text-sm mb-2">TRADE | SPEND | <span className="text-teal-500">EARN</span></p>
-      <Button variant="solid" className="bg-teal text-teal-500 hover:bg-gray-100">Get Started</Button>
+      <Link href="/dashboard" legacyBehavior>
+        <a>
+          <Button variant="solid" className="bg-teal text-teal-500 hover:bg-gray-100">Get Started</Button>
+        </a>
+      </Link>
     </div>
   </div>
 );
@@ -62,6 +68,7 @@ const FeaturesSection = () => (
     </div>
   </div>
 );
+
 const Footer = () => (
   <footer className="bg-black text-white py-8 px-4">
     <div className="container mx-auto text-center">

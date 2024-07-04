@@ -1,35 +1,31 @@
 // src/components/ui/Button.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
-const Button = ({ variant = 'solid', size = 'medium', children, className = '', ...props }) => {
-  let baseStyles = 'py-2 px-4 rounded focus:outline-none';
-  let sizeStyles = {
-    small: 'text-sm',
-    medium: 'text-base',
-    large: 'text-lg',
-    icon: 'p-2'
-  };
-  let variantStyles = {
+const Button = ({ children, variant, className, ...props }) => {
+  const baseStyles = 'py-2 px-4 rounded-full focus:outline-none transition duration-300 ease-in-out transform hover:scale-105';
+  const variants = {
     solid: 'bg-teal-500 text-white hover:bg-teal-600',
-    outline: 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white'
+    outline: 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white',
   };
 
   return (
-    <button
-      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
-      {...props}
-    >
+    <button className={clsx(baseStyles, variants[variant], className)} {...props}>
       {children}
     </button>
   );
 };
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(['solid', 'outline']),
-  size: PropTypes.oneOf(['small', 'medium', 'large', 'icon']),
   children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['solid', 'outline']).isRequired,
   className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  className: '',
 };
 
 export default Button;

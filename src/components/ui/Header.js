@@ -74,8 +74,8 @@ const Header = () => {
             <Link href="/contact" legacyBehavior><a className="hover:text-teal-500">Contact</a></Link>
             <Link href="/faq" legacyBehavior><a className="hover:text-teal-500">FAQ</a></Link>
             <Link href="/settings" legacyBehavior><a className="hover:text-teal-500">Settings</a></Link>
-            <Link href="/sign-in" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
-            <Link href="/sign-up" legacyBehavior><a className="hover:text-teal-500">Sign Up</a></Link>
+            <Link href="/signin" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
+            <Link href="/signup" legacyBehavior><a className="hover:text-teal-500">Sign Up</a></Link>
           </>
         ) : (
           <div className="relative" ref={aboutDropdownRef}>
@@ -121,8 +121,8 @@ const Header = () => {
                 <Link href="/contact" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Contact</a></Link>
                 <Link href="/faq" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>FAQ</a></Link>
                 <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
-                <Link href="/sign-in" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
-                <Link href="/sign-up" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
+                <Link href="/signin" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
+                <Link href="/signup" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
               </>
             ) : (
               <div className="relative" ref={aboutDropdownRef}>
