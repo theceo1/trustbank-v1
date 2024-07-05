@@ -2,22 +2,23 @@
 
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const app = express();
+const port = 3001;
 
-require('dotenv').config();
+app.use(cors());
 
-app.use(express.json());
-
-app.get('/api/market-data', async (req, res) => {
+app.get('/proxy', async (req, res) => {
   try {
-    const response = await axios.get(`${process.env.API_BASE_URL}/market-data`);
-    res.json(response.data);
+    const { url } = req.query;
+    const response = await axios.get(url);
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send(response.data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).send('Error fetching data');
   }
 });
 
-const port = process.env.PORT || 3001;
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Proxy server listening at http://localhost:${port}`);
 });

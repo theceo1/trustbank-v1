@@ -5,7 +5,7 @@ import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import Spinner from '@/components/ui/Spinner';
 import Image from 'next/image';
-import '../styles/Calculator.css'; 
+import '../styles/Calculator.css';
 
 const currencyMap = {
   BTC: 'bitcoin',
@@ -33,7 +33,6 @@ export default function Calculator() {
       return;
     }
     lastRequestTime = now;
-
     setLoading(true);
     setError(null);
     try {
@@ -54,15 +53,21 @@ export default function Calculator() {
     } finally {
       setLoading(false);
     }
-  }, [calculateNgnValue, currency]);
+  }, [currency, amount]);
 
-  const calculateNgnValue = useCallback((rate) => {
-    const usdToNgnRate = rate.usd / rate.ngn;
-    const ngnEquivalent = (amount / usdToNgnRate).toFixed(2);
+  useEffect(() => {
+    if (amount && currency && !inputError) {
+      fetchExchangeRate();
+    }
+  }, [currency, amount, inputError, fetchExchangeRate]);
+
+  const calculateNgnValue = (rate) => {
+    const usdToNgnRate = rate.ngn / rate.usd; // Corrected the conversion calculation
+    const ngnEquivalent = (amount * usdToNgnRate).toFixed(2);
     setNgnValue(ngnEquivalent);
-  }, [amount]);
+  };
 
-  const handleAmountChange = useCallback((e) => {
+  const handleAmountChange = (e) => {
     const value = e.target.value;
     if (value < 0 || isNaN(value)) {
       setInputError('Please enter a valid positive number.');
@@ -70,38 +75,92 @@ export default function Calculator() {
       setInputError(null);
     }
     setAmount(value);
-  }, []);
-
-  useEffect(() => {
-    if (amount && currency && !inputError) {
-      fetchExchangeRate();
-    }
-  }, [currency, amount, inputError, fetchExchangeRate, calculateNgnValue]);
+  };
 
   return (
     <div className="min-h-screen bg-white">
-      <h1>Rate Calculator</h1>
-      <div>
-        <Label htmlFor="currency">Currency:</Label>
-        <select id="currency" value={currency} onChange={(e) => setCurrency(e.target.value)}>
-          {Object.keys(currencyMap).map((key) => (
-            <option key={key} value={key}>{key}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <Label htmlFor="amount">Amount:</Label>
-        <Input
-          id="amount"
-          type="number"
-          value={amount}
-          onChange={handleAmountChange}
-          placeholder="Enter amount"
-        />
-      </div>
-      {loading && <Spinner />}
-      {error && <p>{error}</p>}
-      {ngnValue && <p>NGN Value: {ngnValue}</p>}
+      <header className="bg-[#001F54] text-white py-12">
+        <div className="container mx-auto text-center">
+          <h1 className="text-sm font-semibold tracking-wider">RATE CALCULATOR</h1>
+          <h2 className="mt-4 text-4xl font-bold">Know how much you stand to gain</h2>
+        </div>
+      </header>
+      <main className="container mx-auto flex flex-col items-center py-12">
+        <section className="flex flex-col items-center md:flex-row md:justify-between md:w-full">
+          <div className="bg-[#E6F0FF] p-8 rounded-lg shadow-lg md:w-1/2">
+            <h3 className="text-xl font-bold text-[#001F54] mb-4">CRYPTO | <span className='text-teal-500 text-xl'>trust </span> this rate </h3>
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm font-semibold mb-2 text-[#001F54]">Select Currency:</p>
+                <div className="flex space-x-4">
+                  {['BTC', 'ETH', 'USDT (ERC20)', 'USDT (TRC20)'].map((cur) => (
+                    <Button
+                      key={cur}
+                      className={`px-4 py-2 border rounded-md ${currency === cur ? 'bg-teal-500 text-white' : 'bg-white text-black'}`}
+                      onClick={() => setCurrency(cur)}
+                      variant="outline"
+                    >
+                      {cur}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="wallet-action" className="block text-sm font-semibold mb-2 text-[#001F54]">
+                  Wallet Action:
+                </Label>
+                <div className="relative">
+                  <select
+                    id="wallet-action"
+                    value={action}
+                    onChange={(e) => setAction(e.target.value)}
+                    className="block w-full mt-1 text-black appearance-none border border-gray-300 rounded-md px-4 py-2"
+                  >
+                    <option value="SELL">SELL</option>
+                    <option value="BUY">BUY</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10l5 5 5-5H7z"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="amount" className="block text-sm font-semibold mb-2 text-teal-500">
+                  Amount in USD
+                </Label>
+                <Input
+                  id="amount"
+                  placeholder="5000"
+                  value={amount}
+                  onChange={handleAmountChange}
+                  className="block w-full mt-1 text-black"
+                />
+                {inputError && <p className="text-red-500">{inputError}</p>}
+              </div>
+              {loading ? (
+                <Spinner />
+              ) : error ? (
+                <p className="text-red-500">{error}</p>
+              ) : exchangeRate && (
+                <div>
+                  <p className="text-2xl font-bold text-[#001F54]">NGN {ngnValue}</p>
+                  <p className="text-sm text-gray-600">1 USD = {exchangeRate.ngn.toFixed(2)} NGN</p>
+                  <p className="text-xs text-gray-600 mt-2">NOTE: This is an estimated rate. Actual rate may differ.</p>
+                  <p className="text-xs text-gray-600 mt-2">This is an estimated rate. T&C apply</p>
+                </div>
+              )}
+              <Button className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600" variant="solid" onClick={fetchExchangeRate}>Execute {action}</Button>
+            </div>
+          </div>
+          <div className="mt-12 md:mt-0 md:w-1/2">
+            <Image src="/images/calculator-illustration.svg" alt="Calculator Illustration"  className="mx-auto" width={600} height={600}/>
+          </div>
+        </section>
+        <section className="text-center mt-12">
+          <p className="text-sm text-gray-600">JOIN 300,000+ PEOPLE USING JEROID</p>
+          <h3 className="text-2xl font-bold text-[#001F54] mt-4">Create a free account and start trading today</h3>
+        </section>
+      </main>
     </div>
   );
 }

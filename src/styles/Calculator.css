@@ -1,37 +1,97 @@
-/* styles/Calculator.css */
-.select {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-    margin-top: 1rem;
-  }
-  
-  .select select {
-    display: inline-block;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    color: #001f54;
-    background-color: #e6f0ff;
-    border: 1px solid #001f54;
-    border-radius: 0.25rem;
-    appearance: none;
-    cursor: pointer;
-  }
-  
-  .select:after {
-    content: '▼';
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: #001f54;
-  }
-  
-  .select select:focus {
-    outline: none;
-    border-color: #0056b3;
-  }
-  
+.calculator-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.calculator-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #001f3f;
+}
+
+.calculator-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator-form {
+  max-width: 350px;
+  padding: 2rem;
+  background-color: #e8ebf0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 2rem;
+}
+
+.calculator-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.calculator-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #001f3f;
+}
+
+.calculator-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.calculator-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-button.active {
+  background-color: #001f3f;
+  color: #fff;
+}
+
+.calculator-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.calculator-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+.calculator-execute-button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.calculator-result {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #333;
+}
+
+.calculator-illustration {
+  max-width: auto;
+  height: auto;
+}
