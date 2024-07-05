@@ -1,3 +1,5 @@
+// src/components/MobileMenu.js
+
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -46,7 +48,7 @@ const MobileMenu = () => {
           <nav className="flex flex-col p-4 text-left">
             {pages.map((page) => (
               <Link key={page.name} href={page.path} legacyBehavior>
-                <a onClick={() => setIsOpen(false)} className={`block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500 ${router.pathname === page.path ? 'hidden' : ''}`}>
+                <a onClick={() => setIsOpen(false)} className={`block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-teal-500 ${router.pathname === page.path ? 'bg-teal-500' : ''}`}>
                   {page.name}
                 </a>
               </Link>

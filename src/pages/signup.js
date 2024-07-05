@@ -1,3 +1,5 @@
+//src/pages/signup.js
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';

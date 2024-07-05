@@ -1,3 +1,4 @@
+//src/components/ui/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -123,6 +124,7 @@ const Header = () => {
                 <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
                 <Link href="/signin" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
                 <Link href="/signup" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
+
               </>
             ) : (
               <div className="relative" ref={aboutDropdownRef}>

@@ -1,13 +1,18 @@
+// src/components/Header.js
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
+  const { user, logout } = useAuth();
+
   return (
     <header className="bg-black text-white">
       <div className="container mx-auto flex justify-between items-center py-4">
         <Link href="/">
           <a className="text-xl font-bold">trustBank</a>
         </Link>
-        <nav className="space-x-4">
+        <nav className="hidden md:flex space-x-4">
           <Link href="/dashboard">
             <a className="py-2 px-4 text-gray-300 hover:bg-teal-500">Dashboard</a>
           </Link>
@@ -47,6 +52,20 @@ const Header = () => {
             </div>
           </div>
         </nav>
+        <div className="hidden md:flex space-x-4">
+          {user ? (
+            <button onClick={logout} className="py-2 px-4 text-gray-300 hover:bg-teal-500">Logout</button>
+          ) : (
+            <>
+              <Link href="/signin">
+                <a className="py-2 px-4 text-gray-300 hover:bg-teal-500">Sign In</a>
+              </Link>
+              <Link href="/signup">
+                <a className="py-2 px-4 text-gray-300 hover:bg-teal-500">Sign Up</a>
+              </Link>
+            </>
+          )}
+        </div>
         <MobileMenu />
       </div>
     </header>

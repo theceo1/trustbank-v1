@@ -14,10 +14,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .calculator-form {
-  max-width: 350px;
+  width: 100%;
   padding: 2rem;
   background-color: #e8ebf0;
   border-radius: 10px;

@@ -1,4 +1,6 @@
-// pages/AuthPage.js
+// src/pages/AuthPage.js
+
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './AuthPage.css';
