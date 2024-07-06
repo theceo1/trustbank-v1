@@ -16,7 +16,7 @@ const HeroSection = () => {
         <p className="text-sm mb-2">TRADE | SPEND | <span className="text-teal-500">EARN</span></p>
         {!isAuthenticated ? (
           <button onClick={() => loginWithRedirect()} className="bg-teal-500 text-white px-4 py-2 rounded">
-            Get Started
+            Get in there!!!
           </button>
         ) : (
           <LogoutButton />

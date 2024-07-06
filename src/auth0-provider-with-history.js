@@ -8,7 +8,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
   const router = useRouter();
 
   const onRedirectCallback = (appState) => {
-    router.push(appState?.returnTo || '/dashboard'); // Redirect to dashboard after login
+    router.push(appState?.returnTo || '/dashboard'); // Redirect to homepage after login
   };
 
   const getRedirectUri = () => {

@@ -57,7 +57,7 @@ const Header = () => {
             <div className="relative" ref={aboutDropdownRef}>
               <button
                 onClick={toggleAboutDropdown}
-                className="hover:text-teal-500"
+                className="hover:text-white bg-teal-500 px-2 py-1 rounded"
               >
                 About
               </button>
@@ -82,7 +82,7 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 <Link href="/profile" legacyBehavior><a className="hover:text-teal-500">Profile</a></Link>
-                <LogoutButton />
+                <LogoutButton className="hover:text-white bg-red-500 px-2 py-1 rounded" />
               </>
             ) : (
               <>
@@ -95,7 +95,7 @@ const Header = () => {
           <div className="relative" ref={aboutDropdownRef}>
             <button
               onClick={toggleAboutDropdown}
-              className="hover:text-teal-500"
+              className="hover:text-white bg-teal-500 px-2 py-1 rounded"
             >
               About
             </button>
@@ -139,7 +139,7 @@ const Header = () => {
                 {isAuthenticated ? (
                   <>
                     <Link href="/profile" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Profile</a></Link>
-                    <LogoutButton />
+                    <LogoutButton className="block text-black hover:text-white bg-red-500 px-2 py-1 rounded" />
                   </>
                 ) : (
                   <>
@@ -152,7 +152,7 @@ const Header = () => {
               <div className="relative" ref={aboutDropdownRef}>
                 <button
                   onClick={toggleAboutDropdown}
-                  className="hover:text-teal-500"
+                  className="hover:text-white bg-teal-500 px-2 py-1 rounded"
                 >
                   About
                 </button>
