@@ -1,23 +1,30 @@
 // src/pages/index.js
-
 import React from 'react';
 import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Link from 'next/link';
+import { useAuth0 } from '@auth0/auth0-react';
+import LogoutButton from '@/components/LogoutButton';
 
-const HeroSection = () => (
-  <div className="hero bg-[#090f2d] text-white py-16 px-4">
-    <div className="container mx-auto text-center">
-      <h1 className="text-4xl font-bold mt-0">trustBank</h1>
-      <p className="text-sm mb-2">TRADE | SPEND | <span className="text-teal-500">EARN</span></p>
-      <Link href="/dashboard" legacyBehavior>
-        <a>
-          <Button variant="solid" className="bg-teal text-teal-500 hover:bg-gray-100">Get Started</Button>
-        </a>
-      </Link>
+const HeroSection = () => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+
+  return (
+    <div className="hero bg-[#090f2d] text-white py-16 px-4">
+      <div className="container mx-auto text-center">
+        <h1 className="text-4xl font-bold mt-0">trustBank</h1>
+        <p className="text-sm mb-2">TRADE | SPEND | <span className="text-teal-500">EARN</span></p>
+        {!isAuthenticated ? (
+          <button onClick={() => loginWithRedirect()} className="bg-teal-500 text-white px-4 py-2 rounded">
+            Get Started
+          </button>
+        ) : (
+          <LogoutButton />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FeaturesSection = () => (
   <div className="features py-16 px-4 bg-[#090f2d]">

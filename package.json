@@ -14,6 +14,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@svgr/webpack": "^8.1.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",

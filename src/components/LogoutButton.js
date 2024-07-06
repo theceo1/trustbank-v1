@@ -1,11 +1,15 @@
 // src/components/LogoutButton.js
-import React, { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const LogoutButton = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout } = useAuth0();
 
-  return <button onClick={logout}>Logout</button>;
+  return (
+    <button onClick={() => logout({ returnTo: window.location.origin })} className="bg-red-500 text-white px-4 py-2 rounded">
+      Logout
+    </button>
+  );
 };
 
 export default LogoutButton;

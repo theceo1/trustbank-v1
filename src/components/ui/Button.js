@@ -3,9 +3,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ variant, onClick, children }) => {
+const Button = ({ variant, onClick = () => {}, children, className = '' }) => {
   return (
-    <button className={`btn btn-${variant}`} onClick={onClick}>
+    <button className={`btn btn-${variant} ${className}`} onClick={onClick}>
       {children}
     </button>
   );
@@ -13,8 +13,9 @@ const Button = ({ variant, onClick, children }) => {
 
 Button.propTypes = {
   variant: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 export default Button;

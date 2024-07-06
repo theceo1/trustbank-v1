@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-const Card = ({ children, className, ...props }) => {
+const Card = ({ children, className = '', ...props }) => {
   const baseStyles = 'bg-white rounded-lg shadow-lg p-4';
   return (
     <div className={clsx(baseStyles, className)} {...props}>
@@ -13,7 +13,7 @@ const Card = ({ children, className, ...props }) => {
   );
 };
 
-const CardHeader = ({ children, className, ...props }) => {
+const CardHeader = ({ children, className = '', ...props }) => {
   const baseStyles = 'mb-2';
   return (
     <div className={clsx(baseStyles, className)} {...props}>
@@ -22,7 +22,7 @@ const CardHeader = ({ children, className, ...props }) => {
   );
 };
 
-const CardTitle = ({ children, className, ...props }) => {
+const CardTitle = ({ children, className = '', ...props }) => {
   const baseStyles = 'text-xl font-bold text-black';
   return (
     <h3 className={clsx(baseStyles, className)} {...props}>
@@ -31,7 +31,7 @@ const CardTitle = ({ children, className, ...props }) => {
   );
 };
 
-const CardContent = ({ children, className, ...props }) => {
+const CardContent = ({ children, className = '', ...props }) => {
   const baseStyles = 'text-black';
   return (
     <div className={clsx(baseStyles, className)} {...props}>
@@ -45,17 +45,9 @@ Card.propTypes = {
   className: PropTypes.string,
 };
 
-Card.defaultProps = {
-  className: '',
-};
-
 CardHeader.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-};
-
-CardHeader.defaultProps = {
-  className: '',
 };
 
 CardTitle.propTypes = {
@@ -63,17 +55,9 @@ CardTitle.propTypes = {
   className: PropTypes.string,
 };
 
-CardTitle.defaultProps = {
-  className: '',
-};
-
 CardContent.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-};
-
-CardContent.defaultProps = {
-  className: '',
 };
 
 export { Card, CardHeader, CardTitle, CardContent };

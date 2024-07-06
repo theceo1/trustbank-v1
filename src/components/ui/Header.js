@@ -1,9 +1,11 @@
-//src/components/ui/Header.js
+// src/components/ui/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { CSSTransition } from 'react-transition-group';
+import { useAuth0 } from '@auth0/auth0-react';
+import LogoutButton from '@/components/LogoutButton';
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,6 +13,7 @@ const Header = () => {
   const menuRef = useRef(null);
   const aboutDropdownRef = useRef(null);
   const router = useRouter();
+  const { isAuthenticated } = useAuth0();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -75,8 +78,18 @@ const Header = () => {
             <Link href="/contact" legacyBehavior><a className="hover:text-teal-500">Contact</a></Link>
             <Link href="/faq" legacyBehavior><a className="hover:text-teal-500">FAQ</a></Link>
             <Link href="/settings" legacyBehavior><a className="hover:text-teal-500">Settings</a></Link>
-            <Link href="/signin" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
-            <Link href="/signup" legacyBehavior><a className="hover:text-teal-500">Sign Up</a></Link>
+            <Link href="/calculator" legacyBehavior><a className="hover:text-teal-500">Calculator</a></Link>
+            {isAuthenticated ? (
+              <>
+                <Link href="/profile" legacyBehavior><a className="hover:text-teal-500">Profile</a></Link>
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <Link href="/signin" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
+                <Link href="/signup" legacyBehavior><a className="hover:text-teal-500">Sign Up</a></Link>
+              </>
+            )}
           </>
         ) : (
           <div className="relative" ref={aboutDropdownRef}>
@@ -122,9 +135,18 @@ const Header = () => {
                 <Link href="/contact" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Contact</a></Link>
                 <Link href="/faq" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>FAQ</a></Link>
                 <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
-                <Link href="/signin" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
-                <Link href="/signup" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
-
+                <Link href="/calculator" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Calculator</a></Link>
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/profile" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Profile</a></Link>
+                    <LogoutButton />
+                  </>
+                ) : (
+                  <>
+                    <Link href="/signin" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
+                    <Link href="/signup" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign Up</a></Link>
+                  </>
+                )}
               </>
             ) : (
               <div className="relative" ref={aboutDropdownRef}>

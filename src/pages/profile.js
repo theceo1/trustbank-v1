@@ -1,146 +1,60 @@
 // src/pages/profile.js
-import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
-import { useAuth } from '@/context/AuthContext';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const UserProfile = () => {
-  const { user, updateUserProfile, changePassword } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [profile, setProfile] = useState({
-    name: user?.name || 'John Doe',
-    email: user?.email || 'john.doe@example.com',
-    phone: user?.phone || '123-456-7890',
-    address: user?.address || '123 Main St, City, Country',
+    name: '',
+    email: ''
   });
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfile({ ...profile, [name]: value });
-  };
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        name: user.name || 'John Doe',
+        email: user.email || 'john.doe@example.com'
+      });
+    }
+  }, [user]);
 
-  const handleProfileSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await updateUserProfile(profile);
-      toast.success('Profile updated successfully!');
-    } catch (error) {
-      toast.error('Failed to update profile.');
-    }
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error('Passwords do not match!');
-      return;
-    }
-    try {
-      await changePassword(password);
-      toast.success('Password changed successfully!');
-    } catch (error) {
-      toast.error('Failed to change password.');
-    }
-  };
+  if (!isAuthenticated) {
+    return <div>Please log in to view your profile.</div>;
+  }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>User Profile</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleProfileSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={profile.name}
-                onChange={handleChange}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={profile.email}
-                onChange={handleChange}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                type="text"
-                id="phone"
-                name="phone"
-                value={profile.phone}
-                onChange={handleChange}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <Label htmlFor="address">Address</Label>
-              <Input
-                type="text"
-                id="address"
-                name="address"
-                value={profile.address}
-                onChange={handleChange}
-                className="w-full"
-              />
-            </div>
-            <Button type="submit" variant="solid" className="bg-black text-white">
-              Save Changes
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-      <Card className="mt-8">
-        <CardHeader>
-          <CardTitle>Change Password</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handlePasswordSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="password">New Password</Label>
-              <Input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full"
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
-              <Input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full"
-                required
-              />
-            </div>
-            <Button type="submit" variant="solid" className="bg-black text-white">
-              Change Password
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
+      <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-6 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">User Profile</h2>
+        <div className="mb-4">
+          <label className="block text-sm font-medium">Name</label>
+          <input
+            type="text"
+            value={profile.name}
+            onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium">Email</label>
+          <input
+            type="email"
+            value={profile.email}
+            onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          />
+        </div>
+        <button
+          type="button"
+          className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Update Profile
+        </button>
+      </div>
     </div>
   );
 };
