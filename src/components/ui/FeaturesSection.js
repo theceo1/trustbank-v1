@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 
 const FeaturesSection = () => (
-  <div className="features py-16 px-4 bg-[#090f2d]">
+  <div className="features py-16 px-4 bg-blue-100">
     <div className="container mx-auto text-center">
       <h2 className="text-white text-3xl font-bold mb-8">Features</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-700">

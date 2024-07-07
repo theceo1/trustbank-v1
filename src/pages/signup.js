@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +33,7 @@ const Signup = () => {
     }
 
     try {
-      await signup(email, password);
+      await signup({ name, email, password });
       router.push('/signin');
     } catch (error) {
       setError('Signup failed, please try again.');
@@ -44,6 +45,19 @@ const Signup = () => {
       <form className="bg-white text-gray-800 p-6 rounded shadow-md form-container" onSubmit={handleSignup}>
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email

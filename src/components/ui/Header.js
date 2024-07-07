@@ -56,6 +56,7 @@ const Header = () => {
         <a className="font-bold text-lg">trustBank</a>
       </Link>
       <nav className="hidden md:flex space-x-4">
+        <Link href="/calculator" legacyBehavior><a className="hover:text-teal-500">Calculator</a></Link>
         <div className="relative" ref={aboutDropdownRef}>
           <button
             onClick={toggleAboutDropdown}
@@ -83,7 +84,6 @@ const Header = () => {
             <Link href="/faq" legacyBehavior><a className="hover:text-teal-500">FAQ</a></Link>
             <Link href="/settings" legacyBehavior><a className="hover:text-teal-500">Settings</a></Link>
             <Link href="/profile" legacyBehavior><a className="hover:text-teal-500">Profile</a></Link>
-            <Link href="/calculator" legacyBehavior><a className="hover:text-teal-500">Calculator</a></Link>
             <button
               onClick={handleLogout}
               className="hover:text-teal-500"
@@ -113,6 +113,7 @@ const Header = () => {
       >
         <div className="fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-end">
           <div ref={menuRef} className="bg-white w-64 p-4 space-y-4">
+            <Link href="/calculator" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Calculator</a></Link>
             <div className="relative" ref={aboutDropdownRef}>
               <button
                 onClick={toggleAboutDropdown}
@@ -140,7 +141,6 @@ const Header = () => {
                 <Link href="/faq" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>FAQ</a></Link>
                 <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
                 <Link href="/profile" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Profile</a></Link>
-                <Link href="/calculator" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Calculator</a></Link>
                 <button
                   onClick={handleLogout}
                   className="block text-black hover:text-teal-500"

@@ -8,12 +8,14 @@ import Modal from '@/components/ui/Modal';
 import Tooltip from '@/components/ui/Tooltip';
 import Notification from '@/components/ui/Notification';
 import Button from '@/components/ui/Button';
+import { useAuth } from '@/context/AuthContext';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 const DynamicChart = dynamic(() => import('@/components/ui/Chart'), { ssr: false });
 
 const Dashboard = () => {
+  const { user } = useAuth();
   const [marketData, setMarketData] = useState([]);
   const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
   const [isModalOpen, setModalOpen] = useState(false);
@@ -41,6 +43,7 @@ const Dashboard = () => {
   const handleTrade = (e) => {
     e.preventDefault();
     // Handle trade logic here
+    alert('Trade executed successfully!');
   };
 
   const handleCalculator = (e) => {
@@ -52,7 +55,7 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold">Dashboard</h2>
+        <h2 className="text-3xl font-bold text-white">Welcome, {user?.name || 'User'}</h2>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1 space-y-6">
@@ -125,8 +128,8 @@ const Dashboard = () => {
         </div>
 
         <div className="lg:col-span-3 space-y-6">
-          <div className="flex justify-end items-center mb-4">
-            <h2 className="text-2xl font-semibold text-black">Market Overview</h2>
+          <div className="flex justify items-center mb-4">
+            <h2 className="text-2xl font-semibold text-white">Market Overview</h2>
           </div>
           <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
             <CardContent>
