@@ -1,3 +1,4 @@
+// src/pages/signin.js
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
@@ -20,7 +21,7 @@ const Login = () => {
     }
 
     try {
-      await login(email, password); // Ensure this sends the correct structure
+      await login(email, password);
       router.push('/dashboard');
     } catch (error) {
       setError('Login failed, please check your credentials and try again.');
@@ -76,3 +77,4 @@ const Login = () => {
 };
 
 export default Login;
+
