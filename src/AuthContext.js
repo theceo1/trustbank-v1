@@ -1,16 +1,30 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { RouterContext } from 'next/router';
-import { createMockRouter } from '../test-utils/createMockRouter';
-import AuthProvider from '@/context/AuthContext';
+import React, { createContext, useContext, useState } from 'react';
 
-test('renders AuthProvider', () => {
-  render(
-    <RouterContext.Provider value={createMockRouter({})}>
-      <AuthProvider>
-        <div>Test</div>
-      </AuthProvider>
-    </RouterContext.Provider>
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  const login = async ({ email, password }) => {
+    // Simulate an API call for login
+    if (email === 'testing4@test.com' && password === 'password') {
+      setUser({ email });
+    } else {
+      throw new Error('Invalid credentials');
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-  expect(screen.getByText('Test')).toBeInTheDocument();
-});
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

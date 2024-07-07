@@ -1,19 +1,17 @@
-// src/components/ui/Header.js
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { CSSTransition } from 'react-transition-group';
 import { useAuth0 } from '@auth0/auth0-react';
-import LogoutButton from '@/components/LogoutButton';
 
 const Header = () => {
+  const { user, logout } = useAuth0();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const menuRef = useRef(null);
   const aboutDropdownRef = useRef(null);
   const router = useRouter();
-  const { isAuthenticated } = useAuth0();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -57,7 +55,7 @@ const Header = () => {
             <div className="relative" ref={aboutDropdownRef}>
               <button
                 onClick={toggleAboutDropdown}
-                className="hover:text-white bg-teal-500 px-2 py-1 rounded"
+                className="hover:text-teal-500 bg-teal-500 px-2 py-1 rounded"
               >
                 About
               </button>
@@ -78,12 +76,8 @@ const Header = () => {
             <Link href="/contact" legacyBehavior><a className="hover:text-teal-500">Contact</a></Link>
             <Link href="/faq" legacyBehavior><a className="hover:text-teal-500">FAQ</a></Link>
             <Link href="/settings" legacyBehavior><a className="hover:text-teal-500">Settings</a></Link>
-            <Link href="/calculator" legacyBehavior><a className="hover:text-teal-500">Calculator</a></Link>
-            {isAuthenticated ? (
-              <>
-                <Link href="/profile" legacyBehavior><a className="hover:text-teal-500">Profile</a></Link>
-                <LogoutButton className="hover:text-white bg-red-500 px-2 py-1 rounded" />
-              </>
+            {user ? (
+              <button onClick={logout} className="hover:text-teal-500 bg-teal-500 px-2 py-1 rounded">Logout</button>
             ) : (
               <>
                 <Link href="/signin" legacyBehavior><a className="hover:text-teal-500">Sign In</a></Link>
@@ -95,7 +89,7 @@ const Header = () => {
           <div className="relative" ref={aboutDropdownRef}>
             <button
               onClick={toggleAboutDropdown}
-              className="hover:text-white bg-teal-500 px-2 py-1 rounded"
+              className="hover:text-teal-500 bg-teal-500 px-2 py-1 rounded"
             >
               About
             </button>
@@ -135,12 +129,8 @@ const Header = () => {
                 <Link href="/contact" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Contact</a></Link>
                 <Link href="/faq" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>FAQ</a></Link>
                 <Link href="/settings" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Settings</a></Link>
-                <Link href="/calculator" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Calculator</a></Link>
-                {isAuthenticated ? (
-                  <>
-                    <Link href="/profile" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Profile</a></Link>
-                    <LogoutButton className="block text-black hover:text-white bg-red-500 px-2 py-1 rounded" />
-                  </>
+                {user ? (
+                  <button onClick={logout} className="block text-black hover:text-teal-500">Logout</button>
                 ) : (
                   <>
                     <Link href="/signin" legacyBehavior><a className="block text-black hover:text-teal-500" onClick={toggleMobileMenu}>Sign In</a></Link>
@@ -152,7 +142,7 @@ const Header = () => {
               <div className="relative" ref={aboutDropdownRef}>
                 <button
                   onClick={toggleAboutDropdown}
-                  className="hover:text-white bg-teal-500 px-2 py-1 rounded"
+                  className="hover:text-teal-500 bg-teal-500 px-2 py-1 rounded"
                 >
                   About
                 </button>

@@ -1,55 +1,55 @@
-import React, { useContext, useState, useEffect, createContext } from 'react';
-import { useRouter } from 'next/router';
+// src/context/AuthContext.js
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const router = useRouter();
 
-  const login = async ({ email, password }, rememberMe) => {
-    // Implement your login logic here
-    // For example, you can call an API and set the user state
-    // await api.login(email, password);
-    setUser({ email });
-    if (rememberMe) {
-      localStorage.setItem('user', JSON.stringify({ email }));
+  const login = async (email, password) => {
+    const response = await fetch('/api/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }), // Ensure this sends the correct structure
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setUser(data.user);
+      return data.user;
+    } else {
+      throw new Error(data.message);
     }
   };
 
-  const signup = async ({ email, password }) => {
-    // Implement your signup logic here
-    // For example, you can call an API and set the user state
-    // await api.signup(email, password);
-    setUser({ email });
+  const signup = async (email, password) => {
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message);
+    }
   };
 
   const logout = () => {
-    // Implement your logout logic here
-    // For example, you can call an API and clear the user state
-    // await api.logout();
     setUser(null);
-    localStorage.removeItem('user');
-    router.push('/');
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  return (
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
 
-  const value = {
-    user,
-    login,
-    signup,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+export function useAuth() {
+  return useContext(AuthContext);
 }
