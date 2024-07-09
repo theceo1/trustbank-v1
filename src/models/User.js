@@ -1,16 +1,9 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true,
-    match: [/\S+@\S+\.\S+/, 'Email is invalid'],
-  },
-  hashedPassword: {
-    type: String,
-    required: [true, 'Password is required'],
-  },
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  hashedPassword: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' }  // Added role field
 });
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);

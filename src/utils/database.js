@@ -1,9 +1,11 @@
+// src/utils/database.js
+
 import dbConnect from './mongodb';
 import User from '@/models/User';
 
-export async function saveUser(user) {
+export async function saveUser({ email, hashedPassword, role = 'user' }) {
   await dbConnect();
-  const newUser = new User(user);
+  const newUser = new User({ email, hashedPassword, role });
   await newUser.save();
   console.log('User saved:', newUser);
 }

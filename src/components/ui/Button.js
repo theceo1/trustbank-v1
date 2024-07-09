@@ -1,21 +1,25 @@
 // src/components/ui/Button.js
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Button = ({ variant, onClick = () => {}, children, className = '' }) => {
+const Button = ({ children, variant, className, ...props }) => {
+  let variantClasses = '';
+  switch (variant) {
+    case 'solid':
+      variantClasses = 'bg-teal-500 text-white hover:bg-teal-600';
+      break;
+    case 'outline':
+      variantClasses = 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white';
+      break;
+    default:
+      variantClasses = '';
+  }
+
   return (
-    <button className={`btn btn-${variant} ${className}`} onClick={onClick}>
+    <button className={`${variantClasses} ${className}`} {...props}>
       {children}
     </button>
   );
-};
-
-Button.propTypes = {
-  variant: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
 };
 
 export default Button;

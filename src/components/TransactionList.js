@@ -1,20 +1,37 @@
-import React from 'react';
+// src/components/TransactionList.js
+import React, { useState } from 'react';
 
-const TransactionList = ({ transactions }) => {
+const TransactionList = () => {
+  const [amount, setAmount] = useState('');
+  const [transactionFee, setTransactionFee] = useState(0);
+
+  const fetchTransactionFee = async (amount) => {
+    const response = await fetch('/api/transaction-fee', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount }),
+    });
+    const data = await response.json();
+    setTransactionFee(data.fee);
+  };
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value;
+    setAmount(value);
+    fetchTransactionFee(value);
+  };
+
   return (
-    <div className="bg-white p-4 rounded shadow-md">
-      <h2 className="text-xl mb-4">Recent Transactions</h2>
-      <ul>
-        {transactions.map(transaction => (
-          <li key={transaction.id} className="mb-2">
-            <div className="flex justify-between">
-              <span>{transaction.type}</span>
-              <span>{transaction.amount} {transaction.currency}</span>
-            </div>
-            <div className="text-gray-500 text-sm">{transaction.date}</div>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h2>Transaction List</h2>
+      <div>
+        <label>
+          Amount:
+          <input type="number" value={amount} onChange={handleAmountChange} />
+        </label>
+      </div>
+      <div>Transaction Fee: {transactionFee}</div>
+      {/* Existing transaction list rendering logic */}
     </div>
   );
 };

@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [marketData, setMarketData] = useState([]);
   const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
   const [isModalOpen, setModalOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]); // Ensure notifications are defined
   const [tooltipContent, setTooltipContent] = useState('');
   const [cryptoAmount, setCryptoAmount] = useState('');
   const [fiatAmount, setFiatAmount] = useState('');
@@ -42,13 +42,11 @@ const Dashboard = () => {
 
   const handleTrade = (e) => {
     e.preventDefault();
-    // Handle trade logic here
     alert('Trade executed successfully!');
   };
 
   const handleCalculator = (e) => {
     e.preventDefault();
-    // Handle calculator logic here
     setConversionResult(`Converted ${cryptoAmount} to ${fiatAmount}`);
   };
 
@@ -66,7 +64,7 @@ const Dashboard = () => {
             <CardContent>
               <p className="text-2xl text-black">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
               <div className="flex justify-end mt-4">
-                <Button variant="solid" className="bg-teal-900 text-white hover:bg-gray-800 rounded-xl">Deposit</Button>
+                <Button variant="solid" className="bg-black text-white hover:bg-gray-800 rounded-xl">Deposit</Button>
               </div>
             </CardContent>
           </Card>

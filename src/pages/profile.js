@@ -1,7 +1,6 @@
 // src/pages/profile.js
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
 import Image from 'next/image';
 
 const UserProfile = () => {
@@ -18,34 +17,17 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (user) {
-      fetchUserProfile();
+      // Fetch additional user data from your backend if necessary
+      setProfile({
+        username: user.nickname || 'Anonymous',
+        email: user.email || 'john.doe@example.com',
+        profilePicture: user.picture || '',
+        twoFactorAuth: false, // This would come from your backend
+        accountCreationDate: new Date(user.updated_at).toLocaleDateString() || 'N/A',
+        balance: 0 // This would come from your backend
+      });
     }
   }, [user]);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await axios.get('/api/user-profile');
-      setProfile({
-        ...response.data,
-        accountCreationDate: new Date(response.data.accountCreationDate).toLocaleDateString()
-      });
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-
-  const handleUpdateProfile = async () => {
-    try {
-      const response = await axios.put('/api/user-profile', profile);
-      setProfile({
-        ...response.data,
-        accountCreationDate: new Date(response.data.accountCreationDate).toLocaleDateString()
-      });
-      setIsEditing(false);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -54,6 +36,11 @@ const UserProfile = () => {
   if (!isAuthenticated) {
     return <div>Please log in to view your profile.</div>;
   }
+
+  const handleUpdateProfile = () => {
+    // Update profile logic here (e.g., send updated data to your backend)
+    setIsEditing(false);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">

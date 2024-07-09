@@ -30,7 +30,8 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    res.status(200).json({ message: 'Login successful', user });
+    // Include user role in the response
+    res.status(200).json({ message: 'Login successful', user: { email: user.email, role: user.role } });
   } catch (error) {
     console.error('Signin error:', error);
     res.status(500).json({ message: 'Login failed, please try again' });

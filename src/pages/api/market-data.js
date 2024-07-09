@@ -1,11 +1,19 @@
-export default function handler(req, res) {
-    const marketData = [
-      { symbol: 'BTC', name: 'Bitcoin', price: '$40,000', change: '+2%', marketCap: '$800B' },
-      { symbol: 'ETH', name: 'Ethereum', price: '$2,500', change: '+1.5%', marketCap: '$300B' },
-      { symbol: 'USDT', name: 'Tether', price: '$1.00', change: '0%', marketCap: '$60B' },
-      { symbol: 'BNB', name: 'Binance Coin', price: '$300', change: '+1%', marketCap: '$45B' },
-    ];
-    
-    res.status(200).json(marketData);
+// src/pages/api/market-data.js
+
+import { fetchMarketData } from '@/services/marketDataService';
+
+export default async function handler(req, res) {
+  const { symbol } = req.query;
+
+  if (!symbol) {
+    return res.status(400).json({ message: 'Symbol is required' });
   }
-  
+
+  try {
+    const data = await fetchMarketData(symbol);
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('Error fetching market data:', error);
+    res.status(500).json({ message: 'Failed to fetch market data' });
+  }
+}
