@@ -10,6 +10,9 @@ npx tailwindcss init -p
 # Heroicons
 npm install @heroicons/react --legacy-peer-deps
 
+npm install jwt-decode --legacy-peer-deps
+npm install nookies --legacy-peer-deps
+
 # Testing dependencies
 npm install --save-dev jest babel-jest @testing-library/react @testing-library/jest-dom cypress --legacy-peer-deps
 

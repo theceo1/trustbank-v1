@@ -1,5 +1,8 @@
+// src/pages/api/signin.js
 import { comparePassword } from '@/utils/auth';
 import { findUserByEmail } from '@/utils/database';
+import jwt from 'jsonwebtoken';
+import { setCookie } from 'nookies';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,6 +23,7 @@ export default async function handler(req, res) {
     console.log('User found:', user);
 
     if (!user) {
+      console.log('Invalid credentials: user not found');
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
@@ -27,11 +31,23 @@ export default async function handler(req, res) {
     console.log('Password valid:', isPasswordValid);
 
     if (!isPasswordValid) {
+      console.log('Invalid credentials: password does not match');
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Include user role in the response
-    res.status(200).json({ message: 'Login successful', user: { email: user.email, role: user.role } });
+    const token = jwt.sign({ sub: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    setCookie({ res }, 'token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'strict',
+      path: '/',
+    });
+
+    console.log('Login successful');
+    res.status(200).json({ message: 'Login successful', user });
   } catch (error) {
     console.error('Signin error:', error);
     res.status(500).json({ message: 'Login failed, please try again' });

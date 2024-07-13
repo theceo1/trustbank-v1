@@ -1,5 +1,5 @@
 // src/pages/dashboard.js
-
+import withAuth from '@/components/hoc/withAuth';
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [marketData, setMarketData] = useState([]);
   const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
   const [isModalOpen, setModalOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]); // Ensure notifications are defined
+  const [notifications, setNotifications] = useState([]);
   const [tooltipContent, setTooltipContent] = useState('');
   const [cryptoAmount, setCryptoAmount] = useState('');
   const [fiatAmount, setFiatAmount] = useState('');
@@ -216,4 +216,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

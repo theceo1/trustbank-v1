@@ -1,4 +1,5 @@
 // src/pages/signup.js
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
@@ -34,7 +35,7 @@ const Signup = () => {
 
     try {
       await signup({ name, email, password });
-      router.push('/signin');
+      router.push('/dashboard');
     } catch (error) {
       setError('Signup failed, please try again.');
     }

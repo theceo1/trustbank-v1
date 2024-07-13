@@ -1,3 +1,5 @@
+// src/pages/_app.js
+
 import React from 'react';
 import '../styles/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
