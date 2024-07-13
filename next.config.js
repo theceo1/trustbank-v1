@@ -1,20 +1,20 @@
-const webpack = require('webpack');
+// next.config.js
+const withTM = require('next-transpile-modules')(['@babel/preset-env', '@babel/preset-react', 'babel-loader']);
 
-module.exports = {
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        global: require.resolve('global')
-      };
-
-      config.plugins.push(
-        new webpack.ProvidePlugin({
-          global: 'global'
-        })
-      );
-    }
+module.exports = withTM({
+  swcMinify: false,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(js|jsx|ts|tsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['next/babel', '@babel/preset-env', '@babel/preset-react'],
+        },
+      },
+    });
 
     return config;
-  }
-};
+  },
+});

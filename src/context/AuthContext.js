@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
-import jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 const AuthContext = createContext();
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     const token = cookies.token;
 
     if (token) {
-      const decodedToken = jwtDecode(token);
+      const decodedToken = jwt_decode(token);
       setUser(decodedToken);
     }
   }, []);

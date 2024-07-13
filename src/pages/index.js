@@ -1,4 +1,3 @@
-// src/pages/index.js
 import React from 'react';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
@@ -6,7 +5,6 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import Footer from '@/components/ui/Footer';
 import FeaturesSection from '@/components/ui/FeaturesSection'; 
-
 
 const HeroSection = () => {
   const { user } = useAuth();
@@ -41,6 +39,8 @@ const HomePage = () => {
           alt="Cryptocurrency Trading"
           width={400}
           height={400}
+          priority
+          style={{ width: 'auto', height: 'auto' }}
         />
       </div>
       <FeaturesSection />

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Signup component 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-screen items-center justify-center bg-gray-100"
+  >
+    <div
+      class="w-full max-w-md"
+    >
+      <div
+        class="bg-white p-8 rounded-lg shadow-lg"
+      >
+        <div
+          class="text-center mb-4"
+        >
+          <img
+            alt="Logo"
+            data-nimg="1"
+            decoding="async"
+            height="50"
+            loading="lazy"
+            src="/images/logo/logo.svg"
+            style="color: transparent;"
+            width="100"
+          />
+        </div>
+        <h2
+          class="text-2xl font-bold mb-4 text-center"
+        >
+          Sign Up to TailAdmin
+        </h2>
+        <form>
+          <div
+            class="mb-4"
+          >
+            <label
+              class="block text-gray-700"
+            >
+              Email
+            </label>
+            <input
+              class="w-full p-2 border border-gray-300 rounded mt-2"
+              placeholder="Enter your email"
+              type="email"
+              value=""
+            />
+          </div>
+          <div
+            class="mb-4"
+          >
+            <label
+              class="block text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              class="w-full p-2 border border-gray-300 rounded mt-2"
+              placeholder="Enter your password"
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            class="mb-4"
+          >
+            <label
+              class="block text-gray-700"
+            >
+              Re-type Password
+            </label>
+            <input
+              class="w-full p-2 border border-gray-300 rounded mt-2"
+              placeholder="Re-enter your password"
+              type="password"
+              value=""
+            />
+          </div>
+          <button
+            class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            type="submit"
+          >
+            Create account
+          </button>
+        </form>
+        <div
+          class="mt-4 text-center"
+        >
+          <p
+            class="text-gray-700"
+          >
+            Already have an account? 
+            <a
+              class="text-blue-500"
+              href="/admin/signin"
+            >
+              Sign in
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

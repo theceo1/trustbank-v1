@@ -1,5 +1,4 @@
 // src/pages/dashboard.test.js
-
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Dashboard from './dashboard';
@@ -30,21 +29,13 @@ describe('Dashboard', () => {
   });
 
   test('renders dashboard with user name', () => {
-    render(
-      <AuthProvider>
-        <Dashboard />
-      </AuthProvider>
-    );
+    render(<Dashboard />);
 
     expect(screen.getByText(/Welcome, Test User/i)).toBeInTheDocument();
   });
 
   test('fetches and displays market data', async () => {
-    render(
-      <AuthProvider>
-        <Dashboard />
-      </AuthProvider>
-    );
+    render(<Dashboard />);
 
     await waitFor(() => {
       expect(screen.getByText(/Bitcoin \(BTC\)/i)).toBeInTheDocument();
@@ -54,11 +45,7 @@ describe('Dashboard', () => {
   });
 
   test('calculates crypto to fiat correctly', async () => {
-    render(
-      <AuthProvider>
-        <Dashboard />
-      </AuthProvider>
-    );
+    render(<Dashboard />);
 
     fireEvent.change(screen.getByLabelText(/Amount/i), {
       target: { value: '1' },
