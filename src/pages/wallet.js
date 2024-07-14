@@ -72,7 +72,8 @@ const Wallet = () => {
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-lg font-bold">Wallet</h2>
-
+      {user && <p>Welcome, {user.name}</p>}
+      
       <Card className="mb-4 mt-2 bg-white shadow-lg">
         <CardHeader>
           <CardTitle>Buy/Sell Cryptocurrency</CardTitle>

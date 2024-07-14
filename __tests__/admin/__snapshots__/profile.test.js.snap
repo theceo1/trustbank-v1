@@ -36,12 +36,11 @@ exports[`renders Profile component 1`] = `
                     class="flex items-center gap-2"
                   >
                     <li>
-                      <a
+                      <Link href="/dashboard" legacyBehavior><a
                         class="font-medium"
-                        href="/dashboard"
                       >
                         Dashboard /
-                      </a>
+                      </a></Link>
                     </li>
                     <li
                       class="text-primary"
@@ -57,7 +56,7 @@ exports[`renders Profile component 1`] = `
                 <div
                   class="relative z-20 h-35 md:h-65"
                 >
-                  <img
+                  <Image
                     alt="profile cover"
                     class="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
                     src="/images/cover/cover-01.png"
@@ -113,7 +112,7 @@ exports[`renders Profile component 1`] = `
                     <div
                       class="relative drop-shadow-2"
                     >
-                      <img
+                      <Image
                         alt="profile"
                         src="/images/user/user-06.png"
                       />
@@ -235,10 +234,9 @@ exports[`renders Profile component 1`] = `
                       <div
                         class="flex items-center justify-center gap-3.5"
                       >
-                        <a
+                        <Link href="#" legacyBehavior><a
                           aria-label="social-icon"
                           class="hover:text-primary"
-                          href="#"
                           name="social-icon"
                         >
                           <svg
@@ -269,11 +267,10 @@ exports[`renders Profile component 1`] = `
                               </clippath>
                             </defs>
                           </svg>
-                        </a>
-                        <a
+                        </a></Link>
+                        <Link href="#" legacyBehavior><a
                           aria-label="social-icon"
                           class="hover:text-primary"
-                          href="#"
                           name="social-icon"
                         >
                           <svg
@@ -305,11 +302,10 @@ exports[`renders Profile component 1`] = `
                               </clippath>
                             </defs>
                           </svg>
-                        </a>
-                        <a
+                        </a></Link>
+                        <Link href="#" legacyBehavior><a
                           aria-label="social-icon"
                           class="hover:text-primary"
-                          href="#"
                           name="social-icon"
                         >
                           <svg
@@ -341,11 +337,10 @@ exports[`renders Profile component 1`] = `
                               </clippath>
                             </defs>
                           </svg>
-                        </a>
-                        <a
+                        </a></Link>
+                        <Link href="#" legacyBehavior><a
                           aria-label="social-icon"
                           class="hover:text-primary"
-                          href="#"
                           name="social-icon"
                         >
                           <svg
@@ -376,11 +371,10 @@ exports[`renders Profile component 1`] = `
                               </clippath>
                             </defs>
                           </svg>
-                        </a>
-                        <a
+                        </a></Link>
+                        <Link href="#" legacyBehavior><a
                           aria-label="social-icon"
                           class="hover:text-primary"
-                          href="#"
                           name="social-icon"
                         >
                           <svg
@@ -412,7 +406,7 @@ exports[`renders Profile component 1`] = `
                               </clippath>
                             </defs>
                           </svg>
-                        </a>
+                        </a></Link>
                       </div>
                     </div>
                   </div>

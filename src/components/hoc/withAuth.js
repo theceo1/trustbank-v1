@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 
 const withAuth = (WrappedComponent) => {
-  return (props) => {
+  const WithAuthComponent = (props) => {
     const { user } = useAuth();
     const router = useRouter();
 
@@ -17,6 +17,8 @@ const withAuth = (WrappedComponent) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  return WithAuthComponent;
 };
 
 export default withAuth;

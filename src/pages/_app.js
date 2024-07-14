@@ -8,21 +8,24 @@ import Header from '@/components/ui/Header';
 import Auth0ProviderWithHistory from '@/auth0-provider-with-history';
 import { Provider } from 'react-redux';
 import store from '@/store';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <NotificationProvider>
-          <Auth0ProviderWithHistory>
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
-              <Header />
-              <Component {...pageProps} />
-            </div>
-          </Auth0ProviderWithHistory>
-        </NotificationProvider>
-      </AuthProvider>
-    </Provider>
+    <UserProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <NotificationProvider>
+            <Auth0ProviderWithHistory>
+              <div className="min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
+                <Header />
+                <Component {...pageProps} />
+              </div>
+            </Auth0ProviderWithHistory>
+          </NotificationProvider>
+        </AuthProvider>
+      </Provider>
+    </UserProvider>
   );
 }
 

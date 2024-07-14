@@ -1,9 +1,10 @@
+// src/components/ui/ProtectedRoute.js
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const ProtectedRoute = (WrappedComponent) => {
-  return (props) => {
+  const ProtectedRouteComponent = (props) => {
     const { user } = useAuth();
     const router = useRouter();
 
@@ -19,6 +20,8 @@ const ProtectedRoute = (WrappedComponent) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  return ProtectedRouteComponent;
 };
 
 export default ProtectedRoute;

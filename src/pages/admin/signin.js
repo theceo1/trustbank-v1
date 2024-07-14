@@ -1,24 +1,18 @@
+import { useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
-const ProtectedRoute = (WrappedComponent) => {
-  return (props) => {
-    const { user } = useAuth();
-    const router = useRouter();
+const SignIn = () => {
+  const { signin } = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-      if (!user) {
-        router.push('/admin/signin');
-      }
-    }, [user, router]);
+  useEffect(() => {
+    // your logic
+  }, [router]);
 
-    if (!user) {
-      return null;
-    }
-
-    return <WrappedComponent {...props} />;
-  };
+  return <div>Sign In</div>;
 };
 
-export default ProtectedRoute;
+SignIn.displayName = 'SignIn';
+
+export default SignIn;

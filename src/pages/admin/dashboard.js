@@ -10,8 +10,12 @@ const AdminDashboard = () => {
   );
 };
 
-export default () => (
+const AdminDashboardPage = () => (
   <AdminRoute>
     <AdminDashboard />
   </AdminRoute>
 );
+
+AdminDashboardPage.displayName = 'AdminDashboardPage';
+
+export default AdminDashboardPage;

@@ -1,7 +1,7 @@
 // __tests__/calculator.test.js
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Calculator from '../src/pages/calculator';
+import Calculator from '../pages/calculator';
 
 describe('Calculator', () => {
   test('renders calculator page', () => {

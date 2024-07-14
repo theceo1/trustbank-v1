@@ -14,7 +14,7 @@ exports[`renders Signup component 1`] = `
         <div
           class="text-center mb-4"
         >
-          <img
+          <Image
             alt="Logo"
             data-nimg="1"
             decoding="async"
@@ -90,12 +90,11 @@ exports[`renders Signup component 1`] = `
             class="text-gray-700"
           >
             Already have an account? 
-            <a
+            <Link href="/admin/signin" legacyBehavior><a
               class="text-blue-500"
-              href="/admin/signin"
             >
               Sign in
-            </a>
+            </a></Link>
           </p>
         </div>
       </div>

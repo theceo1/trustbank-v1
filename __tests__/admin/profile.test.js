@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useAuth0 } from '@auth0/auth0-react';
-import UserProfile from './profile';
+import UserProfile from '../pages/profile';
 
 jest.mock('@auth0/auth0-react');
 

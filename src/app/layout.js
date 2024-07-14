@@ -1,7 +1,7 @@
 // src/app/layout.js
 import React from 'react';
 import '../styles/globals.css';
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google';
 
 const fontHeading = Inter({
   subsets: ['latin'],

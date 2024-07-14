@@ -1,12 +1,17 @@
 const { withApiAuthRequired, getSession } = require('@auth0/nextjs-auth0');
-const checkRole = require('../../../middleware/checkRole');
+const checkRole = require('@/middleware/checkRole'); // Ensure checkRole exists here
 
 const handler = async (req, res) => {
   const { user } = getSession(req, res);
-  req.user = user;
+  if (!user) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
-  // Your route logic here
-  res.status(200).json({ message: 'This is a protected route' });
+  if (!checkRole(user, 'admin')) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  res.status(200).json({ message: 'Protected content' });
 };
 
-module.exports = withApiAuthRequired(checkRole('admin')(handler));
+module.exports = withApiAuthRequired(handler);

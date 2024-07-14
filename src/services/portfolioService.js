@@ -1,20 +1,18 @@
-// src/services/portfolioService.js
-
-import dbConnect from '@/utils/mongodb';
 import Portfolio from '@/models/Portfolio';
+import dbConnect from '@/lib/dbConnect';
 
 export const getPortfolio = async (userId) => {
   await dbConnect();
-  const portfolio = await Portfolio.findOne({ userId }).lean();
-  return portfolio || { userId, assets: [] };
+  const portfolio = await Portfolio.find({ user: userId });
+  return portfolio;
 };
 
-export const updatePortfolio = async (userId, assets) => {
+export const updatePortfolio = async (userId, portfolioData) => {
   await dbConnect();
   const portfolio = await Portfolio.findOneAndUpdate(
-    { userId },
-    { $set: { assets } },
-    { new: true, upsert: true }
+    { user: userId },
+    portfolioData,
+    { new: true }
   );
   return portfolio;
 };

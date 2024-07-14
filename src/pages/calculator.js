@@ -1,3 +1,4 @@
+// src/pages/calculator.js
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Button from '@/components/ui/Button';
@@ -26,6 +27,12 @@ export default function Calculator() {
   const [error, setError] = useState(null);
   const [inputError, setInputError] = useState(null);
 
+  const calculateNgnValue = useCallback((rate) => {
+    const usdToNgnRate = rate.ngn / rate.usd;
+    const ngnEquivalent = (amount * usdToNgnRate).toFixed(2);
+    setNgnValue(ngnEquivalent);
+  }, [amount]);
+
   const fetchExchangeRate = useCallback(async () => {
     const now = Date.now();
     if (now - lastRequestTime < 1000) { // 1 second throttle
@@ -53,19 +60,13 @@ export default function Calculator() {
     } finally {
       setLoading(false);
     }
-  }, [currency, amount]);
+  }, [currency, calculateNgnValue]);
 
   useEffect(() => {
     if (amount && currency && !inputError) {
       fetchExchangeRate();
     }
   }, [currency, amount, inputError, fetchExchangeRate]);
-
-  const calculateNgnValue = (rate) => {
-    const usdToNgnRate = rate.ngn / rate.usd; // Corrected the conversion calculation
-    const ngnEquivalent = (amount * usdToNgnRate).toFixed(2);
-    setNgnValue(ngnEquivalent);
-  };
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
@@ -106,7 +107,7 @@ export default function Calculator() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="wallet-action" className="block text-sm font-semibold mb-2 text-[#001F54]">
+                <Label htmlFor="wallet-action" className="block text-sm font-semibold mb-2 text-black">
                   Wallet Action:
                 </Label>
                 <div className="relative">
@@ -125,7 +126,7 @@ export default function Calculator() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="amount" className="block text-sm font-semibold mb-2 text-teal-500">
+                <Label htmlFor="amount" className="block text-sm font-semibold mb-2 text-black">
                   Amount in USD
                 </Label>
                 <Input
@@ -153,12 +154,13 @@ export default function Calculator() {
             </div>
           </div>
           <div className="mt-12 md:mt-0 md:w-1/2">
-            <Image src="/images/calculator-illustration.svg" alt="Calculator Illustration"  className="mx-auto" width={600} height={600}/>
+            <Image src="/images/calculator-illustration.svg" alt="Calculator Illustration" className="mx-auto" width={600} height={600}/>
           </div>
         </section>
         <section className="text-center mt-12">
-          <p className="text-sm text-gray-600">JOIN 300,000+ PEOPLE USING JEROID</p>
-          <h3 className="text-2xl font-bold text-[#001F54] mt-4">Create a free account and start trading today</h3>
+          <p className="text-sm text-gray-600">Powered by trustBank. </p>
+          <h3 className="text-2xl font-bold text-[#001F54] mt-4">Borderless payment simplified. Want to know more about our technology, development and progress? 
+            <br> signup to our <span className='text-teal-500'>waiting list</span></br>. Become bankless with the trustCard</h3>
         </section>
       </main>
     </div>

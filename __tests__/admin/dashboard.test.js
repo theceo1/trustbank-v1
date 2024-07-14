@@ -1,7 +1,7 @@
 // src/pages/dashboard.test.js
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Dashboard from './dashboard';
+import Dashboard from '../pages/dashboard';
 import { AuthProvider } from '@/context/AuthContext';
 
 // Mock the AuthProvider to provide a dummy user

@@ -12,6 +12,12 @@ npm install @heroicons/react --legacy-peer-deps
 
 npm install jwt-decode --legacy-peer-deps
 npm install nookies --legacy-peer-deps
+npm install next-transpile-modules --legacy-peer-deps
+npm install ajv ajv-keywords --legacy-peer-deps
+npm install babel-loader --legacy-peer-deps
+npm install twilio --legacy-peer-deps
+npm install css-loader style-loader --legacy-peer-deps
+
 
 # Testing dependencies
 npm install --save-dev jest babel-jest @testing-library/react @testing-library/jest-dom cypress --legacy-peer-deps

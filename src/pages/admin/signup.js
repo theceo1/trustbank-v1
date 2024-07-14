@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const SignUp = () => {
   const { login } = useAuth();
@@ -22,7 +23,7 @@ const SignUp = () => {
           <div className="text-center mb-4">
             <Image src="/images/logo/logo.svg" alt="Logo" width={100} height={50} />
           </div>
-          <h2 className="text-2xl font-bold mb-4 text-center">Sign Up to TailAdmin</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Sign Up to Admin</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700">Email</label>
@@ -63,7 +64,7 @@ const SignUp = () => {
           </form>
           <div className="mt-4 text-center">
             <p className="text-gray-700">
-              Already have an account? <a href="/admin/signin" className="text-blue-500">Sign in</a>
+              Admin create an account OR <Link href="/admin/signin" legacyBehavior><a  className="text-blue-500">Sign in</a></Link>
             </p>
           </div>
         </div>
