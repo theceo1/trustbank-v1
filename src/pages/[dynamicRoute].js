@@ -1,17 +1,16 @@
-import build from "next/dist/build";
-import dynamic from "next/dynamic";
+// src/pages/[dynamicRoute].js
+import { useRouter } from 'next/router';
+import React from 'react';
 
-const DynamicComponent = dynamic(() => import('@/components/DynamicComponent'), 
-{ ssr: false,    
- });
+const DynamicRoutePage = () => {
+  const router = useRouter();
+  const { dynamicRoute } = router.query;
 
- const DynamicPage = () => {
   return (
     <div>
-      <DynamicComponent />
+      <h1>Dynamic Route: {dynamicRoute}</h1>
     </div>
-  )
-}
+  );
+};
 
-export default DynamicPage;
-
+export default DynamicRoutePage;

@@ -1,3 +1,5 @@
+import React from 'react';
+
 const NotAuthorized = () => {
     return (
       <div className="container mx-auto py-8">

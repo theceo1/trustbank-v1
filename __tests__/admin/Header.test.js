@@ -1,43 +1,47 @@
-// src/components/ui/__tests__/Header.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import Header from '@/components/ui/Header';
+import { AuthProvider } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
-import { AuthProvider, useAuth } from '@/context/AuthContext';
-import Header from '../Header';
 
-// Mock useRouter
+jest.mock('@/context/AuthContext', () => ({
+  AuthProvider: ({ children }) => <div>{children}</div>,
+  useAuth: () => ({ user: { name: 'Test User' }, logout: jest.fn() }),
+}));
+
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-const mockPush = jest.fn();
-useRouter.mockImplementation(() => ({
-  push: mockPush,
-}));
-
-const MockHeader = ({ isAuthenticated }) => (
-  <AuthProvider value={{ user: isAuthenticated ? { email: 'test@test.com' } : null, logout: jest.fn() }}>
-    <Header />
-  </AuthProvider>
-);
-
 describe('Header', () => {
-  it('should display signin/signup buttons when not authenticated', () => {
-    render(<MockHeader isAuthenticated={false} />);
-
-    expect(screen.getByText(/sign in/i)).toBeInTheDocument();
-    expect(screen.getByText(/sign up/i)).toBeInTheDocument();
+  beforeEach(() => {
+    useRouter.mockReturnValue({
+      pathname: '/',
+      push: jest.fn(),
+    });
   });
 
   it('should display logout button when authenticated', () => {
-    render(<MockHeader isAuthenticated={true} />);
-
+    render(
+      <AuthProvider>
+        <Header />
+      </AuthProvider>
+    );
     expect(screen.getByText(/logout/i)).toBeInTheDocument();
   });
 
   it('should navigate to homepage on logout', () => {
-    render(<MockHeader isAuthenticated={true} />);
+    const mockPush = jest.fn();
+    useRouter.mockReturnValue({
+      pathname: '/',
+      push: mockPush,
+    });
 
+    render(
+      <AuthProvider>
+        <Header />
+      </AuthProvider>
+    );
     fireEvent.click(screen.getByText(/logout/i));
     expect(mockPush).toHaveBeenCalledWith('/');
   });

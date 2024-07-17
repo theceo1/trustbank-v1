@@ -3,7 +3,8 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 
-export default function Mission() {
+const Mission = () => {
+  
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-8 px-4">
       <h1 className="text-3xl font-bold mb-4">Our Mission</h1>
@@ -16,3 +17,5 @@ export default function Mission() {
     </div>
   );
 }
+
+export default  Mission;

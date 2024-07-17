@@ -1,16 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import withAuth from '@/components/hoc/withAuth';
 
-const Profile = () => {
+const AdminProfile = () => {
   return (
-    <div
-      x-data="{ page: 'profile', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
-      x-init="
-        darkMode = JSON.parse(localStorage.getItem('darkMode'));
-        $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-      className="{darkMode === true ? 'dark text-bodydark bg-boxdark-2' : ''}"
-    >
+    <div className="dark text-bodydark bg-boxdark-2">
       {/* ===== Preloader Start ===== */}
       <div>
         {/* Replace with your preloader component or code */}
@@ -103,7 +98,7 @@ const Profile = () => {
                   <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
                     <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
                       <div className="relative drop-shadow-2">
-                        <Image src="/images/user/user-06.png" alt="profile" />
+                        <Image src="/images/user/user-06.png" alt="profile" width={176} height={176} />
                         <label
                           htmlFor="profile"
                           className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
@@ -297,37 +292,6 @@ const Profile = () => {
                               </defs>
                             </svg>
                           </a></Link>
-                          <Link href="#" legacyBehavior><a
-                            className="hover:text-primary"
-                            name="social-icon"
-                            aria-label="social-icon"
-                          >
-                            <svg
-                              className="fill-current"
-                              width="23"
-                              height="22"
-                              viewBox="0 0 23 22"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g clipPath="url(#clip0_30_982)">
-                                <path
-                                  d="M11.6662 1.83337C6.6016 1.83337 2.49951 5.93546 2.49951 11C2.49847 12.9244 3.10343 14.8002 4.22854 16.3613C5.35366 17.9225 6.94181 19.0897 8.76768 19.6974C9.22602 19.7771 9.39743 19.5021 9.39743 19.261C9.39743 19.0438 9.38552 18.3224 9.38552 17.5542C7.08285 17.9786 6.48701 16.9932 6.30368 16.4771C6.2001 16.2131 5.75368 15.4 5.3641 15.1819C5.04326 15.0105 4.58493 14.586 5.35218 14.575C6.07451 14.5631 6.58968 15.2396 6.76201 15.5146C7.58701 16.9006 8.90518 16.511 9.43135 16.2709C9.51202 15.675 9.75218 15.2745 10.0162 15.0453C7.9766 14.8161 5.84535 14.025 5.84535 10.5188C5.84535 9.52146 6.2001 8.69737 6.78493 8.05479C6.69326 7.82562 6.37243 6.88604 6.8766 5.62562C6.8766 5.62562 7.64385 5.38546 9.39743 6.56612C10.1437 6.35901 10.9147 6.25477 11.6891 6.25629C12.4683 6.25629 13.2474 6.35896 13.9808 6.56521C15.7334 5.37354 16.5016 5.62654 16.5016 5.62654C17.0058 6.88696 16.6849 7.82654 16.5933 8.05571C17.1772 8.69737 17.5329 9.51046 17.5329 10.5188C17.5329 14.037 15.3906 14.8161 13.351 15.0453C13.6829 15.3313 13.9698 15.8813 13.9698 16.7411C13.9698 17.9667 13.9579 18.9521 13.9579 19.262C13.9579 19.5021 14.1302 19.7881 14.5885 19.6965C16.4081 19.0821 17.9893 17.9126 19.1094 16.3526C20.2296 14.7926 20.8323 12.9206 20.8329 11C20.8329 5.93546 16.7308 1.83337 11.6662 1.83337Z"
-                                  fill=""
-                                />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_30_982">
-                                  <rect
-                                    width="22"
-                                    height="22"
-                                    fill="white"
-                                    transform="translate(0.666138)"
-                                  />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                          </a></Link>
                         </div>
                       </div>
                     </div>
@@ -346,4 +310,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withAuth(AdminProfile);

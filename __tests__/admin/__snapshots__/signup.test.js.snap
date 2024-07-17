@@ -1,5 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SignUp renders SignUp component 1`] = `
+<DocumentFragment>
+  <div
+    class="bg-white p-8 rounded-lg shadow-lg"
+  >
+    <div
+      class="text-center mb-4"
+    >
+      <img
+        alt="Logo"
+        data-nimg="1"
+        decoding="async"
+        height="50"
+        loading="lazy"
+        src="/_next/image?url=%2Fimages%2Flogo.png&w=128&q=75"
+        srcset="/_next/image?url=%2Fimages%2Flogo.png&w=64&q=75 1x, /_next/image?url=%2Fimages%2Flogo.png&w=128&q=75 2x"
+        style="color: transparent;"
+        width="50"
+      />
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4 text-center"
+    >
+      Sign Up to Admin
+    </h2>
+    <form>
+      <div
+        class="mb-4"
+      >
+        <label
+          for="name"
+        >
+          Name
+        </label>
+        <input
+          class="w-full p-2 border rounded"
+          id="name"
+          placeholder="Your Name"
+          required=""
+          type="text"
+        />
+      </div>
+      <div
+        class="mb-4"
+      >
+        <label
+          for="email"
+        >
+          Email
+        </label>
+        <input
+          class="w-full p-2 border rounded"
+          id="email"
+          placeholder="Your Email"
+          required=""
+          type="email"
+        />
+      </div>
+      <div
+        class="mb-4"
+      >
+        <label
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          class="w-full p-2 border rounded"
+          id="password"
+          placeholder="Your Password"
+          required=""
+          type="password"
+        />
+      </div>
+      <button
+        class="bg-teal-500 text-white p-2 rounded hover:bg-teal-600"
+        type="submit"
+      >
+        Sign Up
+      </button>
+    </form>
+    <div
+      class="mt-4 text-center"
+    >
+      <p
+        class="text-gray-700"
+      >
+        Already have an account?
+        <a
+          href="/admin/signin"
+        />
+        <a
+          class="text-blue-500"
+        >
+           Sign in
+        </a>
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`renders Signup component 1`] = `
 <DocumentFragment>
   <div

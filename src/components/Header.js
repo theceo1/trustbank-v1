@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import MobileMenu from './MobileMenu';
 
+import React, { useState, useEffect, useRef } from 'react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
+
 const Header = () => {
   const { user, logout } = useAuth();
 

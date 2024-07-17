@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Profile component 1`] = `
+<DocumentFragment>
+  <div
+    class="container mx-auto py-8 px-4"
+  >
+    <h1
+      class="text-3xl font-bold mb-4"
+    >
+      Profile
+    </h1>
+    <div
+      class="text-gray-700 dark:text-gray-300 mb-8"
+    >
+      <img
+        alt="profile"
+        class="rounded-full"
+        data-nimg="1"
+        decoding="async"
+        height="200"
+        loading="lazy"
+        src="/_next/image?url=%2Fimages%2Fuser%2Fuser-06.png&w=640&q=75"
+        srcset="/_next/image?url=%2Fimages%2Fuser%2Fuser-06.png&w=256&q=75 1x, /_next/image?url=%2Fimages%2Fuser%2Fuser-06.png&w=640&q=75 2x"
+        style="color: transparent;"
+        width="200"
+      />
+      <h2
+        class="text-2xl"
+      >
+        Danish Heilium
+      </h2>
+      <p>
+        UI/UX Designer
+      </p>
+    </div>
+    <a
+      class="text-teal-500 hover:underline"
+      href="/dashboard"
+    >
+      Go To Dashboard
+    </a>
+  </div>
+</DocumentFragment>
+`;

@@ -1,4 +1,3 @@
-// src/test-utils/createMockRouter.js
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 export const createMockRouter = (router) => ({
@@ -12,10 +11,5 @@ export const createMockRouter = (router) => ({
   back: jest.fn(),
   prefetch: jest.fn().mockResolvedValue(undefined),
   beforePopState: jest.fn(),
-  events: {
-    on: jest.fn(),
-    off: jest.fn(),
-    emit: jest.fn(),
-  },
   ...router,
 });

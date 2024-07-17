@@ -1,5 +1,4 @@
-//src/pages/about.js
-
+// src/pages/about.js
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
@@ -34,16 +33,16 @@ const About = () => {
         </button>
         {isDropdownOpen && (
           <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg z-10">
-            <Link href="/vision" legacyBehavior>
+            <Link href="/vision">
               <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Our Vision</a>
             </Link>
-            <Link href="/mission" legacyBehavior>
+            <Link href="/mission">
               <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Our Mission</a>
             </Link>
-            <Link href="/company" legacyBehavior>
+            <Link href="/company">
               <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Company</a>
             </Link>
-            <Link href="/blog" legacyBehavior>
+            <Link href="/blog">
               <a className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-teal-500">Blog</a>
             </Link>
           </div>

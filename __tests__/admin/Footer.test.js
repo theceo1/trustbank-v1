@@ -1,7 +1,7 @@
 // src/components/ui/__tests__/Footer.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Footer from '../Footer';
+import Footer from '@/components/ui/Footer';
 
 describe('Footer', () => {
   it('should render footer with necessary links and waiting list form', () => {

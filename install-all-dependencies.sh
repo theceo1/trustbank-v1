@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Essential Dependencies
 npm install react react-dom next --legacy-peer-deps
 
@@ -17,6 +15,12 @@ npm install ajv ajv-keywords --legacy-peer-deps
 npm install babel-loader --legacy-peer-deps
 npm install twilio --legacy-peer-deps
 npm install css-loader style-loader --legacy-peer-deps
+npm install webpack sass --legacy-peer-deps
+npm install critters webpack --legacy-peer-deps
+npm install webpack sass-loader source-map-loader file-loader style-loader css-loader --legacy-peer-deps
+npm install next-compose-plugins --legacy-peer-deps
+npm install next-compose-plugins next-transpile-modules path sass ignore-loader source-map-loader file-loader style-loader css-loader sass-loader @babel/plugin-transform-block-scoping --legacy-peer-deps
+npm install cypress --save-dev --legacy-peer-deps
 
 
 # Testing dependencies

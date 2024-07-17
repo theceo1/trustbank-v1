@@ -1,4 +1,3 @@
-// src/pages/ForgotPassword.js
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 

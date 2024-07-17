@@ -1,4 +1,3 @@
-// cypress/integration/home.spec.js
 describe('Home Page', () => {
   it('should navigate to sign-up page', () => {
     cy.visit('http://localhost:3000');

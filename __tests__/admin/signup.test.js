@@ -1,18 +1,17 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Signup from '../../src/pages/admin/signup';
+import SignUp from '@/pages/admin/signup';
 import { AuthProvider } from '@/context/AuthContext';
 
-const renderWithAuthProvider = (ui, { providerProps, ...renderOptions }) => {
-  return render(
-    <AuthProvider {...providerProps}>{ui}</AuthProvider>,
-    renderOptions
-  );
+const renderWithAuthProvider = (ui, { providerProps, ...renderOptions } = {}) => {
+  return render(<AuthProvider {...providerProps}>{ui}</AuthProvider>, renderOptions);
 };
 
-test('renders Signup component', () => {
-  const { asFragment } = renderWithAuthProvider(<Signup />, {
-    providerProps: { value: { user: null } },
+describe('SignUp', () => {
+  it('renders SignUp component', () => {
+    const { asFragment } = renderWithAuthProvider(<SignUp />, {
+      providerProps: { value: { user: null } },
+    });
+    expect(asFragment()).toMatchSnapshot();
   });
-  expect(asFragment()).toMatchSnapshot();
 });

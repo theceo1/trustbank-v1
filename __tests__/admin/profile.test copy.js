@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Profile from '../profile';
+import Profile from '@/pages/profile';
 import { AuthProvider } from '@/context/AuthContext';
 
 const renderWithAuthProvider = (ui, { providerProps, ...renderOptions }) => {

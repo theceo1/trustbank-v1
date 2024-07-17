@@ -1,6 +1,3 @@
-// src/pages/AuthPage.js
-
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './AuthPage.css';
@@ -10,7 +7,6 @@ const AuthPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission
     console.log('Form submitted');
   };
 

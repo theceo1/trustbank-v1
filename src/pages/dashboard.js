@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:3000');
 const DynamicChart = dynamic(() => import('@/components/ui/Chart'), { ssr: false });
 
-export default function Dashboard  () {
+const Dashboard = () => {
   const { user } = useAuth();
   const [marketData, setMarketData] = useState([]);
   const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
@@ -216,4 +216,4 @@ export default function Dashboard  () {
   );
 };
 
-// export default Dashboard;
+export default withAuth(Dashboard);

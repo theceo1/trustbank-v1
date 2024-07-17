@@ -1,7 +1,5 @@
-// src/pages/_app.js
-
 import React from 'react';
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { NotificationProvider } from '@/context/NotificationContext';
 import Header from '@/components/ui/Header';
@@ -9,9 +7,11 @@ import Auth0ProviderWithHistory from '@/auth0-provider-with-history';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 function MyApp({ Component, pageProps }) {
   return (
+    <ErrorBoundary>
     <UserProvider>
       <Provider store={store}>
         <AuthProvider>
@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }) {
         </AuthProvider>
       </Provider>
     </UserProvider>
+    </ErrorBoundary>
   );
 }
 

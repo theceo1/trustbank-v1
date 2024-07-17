@@ -1,12 +1,13 @@
-import withRole from '@/components/withRole';
+import React from 'react';
+import withAuth from '@/components/hoc/withAuth';
 
-const AdminPage = () => {
+const Admin = () => {
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold text-black">Admin Page</h1>
-      <p>Welcome, admin!</p>
-    </div>
+      <div className="container mx-auto py-8 px-4">
+        <h1 className="text-3xl font-bold mb-4">Admin Page</h1>
+        <p>Welcome to the admin page. Here you can manage the application.</p>
+      </div>
   );
 };
 
-export default withRole(AdminPage, 'admin');
+export default withAuth(Admin);
