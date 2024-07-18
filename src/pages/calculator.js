@@ -160,7 +160,7 @@ export default function Calculator() {
         <section className="text-center mt-12">
           <p className="text-sm text-gray-600">Powered by trustBank. </p>
           <h3 className="text-2xl font-bold text-[#001F54] mt-4">Borderless payment simplified. Want to know more about our technology, development and progress? 
-            <br> signup to our <span className='text-teal-500'>waiting list</span></br>. Become bankless with the trustCard</h3>
+            <br /> signup to our <span className='text-teal-500'>waiting list</span>. Become bankless with the trustCard</h3>
         </section>
       </main>
     </div>

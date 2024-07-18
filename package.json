@@ -69,7 +69,8 @@
     "uuid": "^10.0.0",
     "v1": "^1.0.0",
     "webpack": "^5.93.0",
-    "ws": "^8.17.1"
+    "ws": "^8.17.1",
+    "xmlhttprequest-ssl": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",

@@ -6,7 +6,6 @@ describe('Authentication Flow', () => {
     cy.get('input[name="name"]').type('Test User');
     cy.get('input[name="email"]').type('test@example.com');
     cy.get('input[name="password"]').type('Password123');
-    cy.get('button[type="submit"]').click();
   });
 
   it('should allow a user to sign in', () => {

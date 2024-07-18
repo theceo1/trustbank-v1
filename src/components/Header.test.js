@@ -1,23 +1,39 @@
-// src/components/Header.test.js
-
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Header from '@/components/Header';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Header from '@/components/ui/Header';
+import { AuthProvider } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 
 jest.mock('@/context/AuthContext', () => ({
-  useAuth: () => ({ user: { name: 'Test User' }, logout: jest.fn() })
+  AuthProvider: ({ children }) => <div>{children}</div>,
+  useAuth: () => ({ user: { name: 'Test User' }, logout: jest.fn() }),
 }));
 
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    pathname: '/dashboard'
-  })
+  useRouter: jest.fn(),
 }));
 
-test('renders Header component', () => {
-  render(<Header />);
-  expect(screen.getByText('trustBank')).toBeInTheDocument();
-  expect(screen.getByText('Dashboard')).toBeInTheDocument();
-  expect(screen.getByText('Markets')).toBeInTheDocument();
-  // Add other expectations as needed
+describe('Header', () => {
+  beforeEach(() => {
+    useRouter.mockReturnValue({
+      pathname: '/',
+      push: jest.fn(),
+    });
+  });
+
+  it('should navigate to homepage on logout', () => {
+    const mockPush = jest.fn();
+    useRouter.mockReturnValue({
+      pathname: '/',
+      push: mockPush,
+    });
+
+    render(
+      <AuthProvider>
+        <Header />
+      </AuthProvider>
+    );
+    fireEvent.click(screen.getByText(/logout/i));
+    expect(mockPush).toHaveBeenCalledWith('/');
+  });
 });
