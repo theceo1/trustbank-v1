@@ -1,11 +1,11 @@
+// __tests__/admin/profile.test.js
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import UserProfile from '@/pages/profile';
 import { useAuth } from '@/context/AuthContext';
+import UserProfile from '@/components/UserProfile';
 
-jest.mock('@/context/AuthContext', () => ({
-  useAuth: jest.fn(),
-}));
+jest.mock('@/context/AuthContext');
 
 describe('UserProfile', () => {
   it('displays loading message when user data is being fetched', () => {

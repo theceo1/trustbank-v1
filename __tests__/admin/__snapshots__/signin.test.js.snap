@@ -68,5 +68,3 @@ exports[`Signin renders Signin component 1`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`renders Signin component 1`] = `<DocumentFragment />`;

@@ -1,32 +1,24 @@
-import React from 'react';
-import '@/styles/globals.css';
-import { AuthProvider } from '@/context/AuthContext';
-import { NotificationProvider } from '@/context/NotificationContext';
-import Header from '@/components/ui/Header';
-import Auth0ProviderWithHistory from '@/auth0-provider-with-history';
+// src/pages/_app.js
+import '../styles/globals.css';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { AuthProvider } from '@/context/AuthContext'; // Ensure this path is correct
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 function MyApp({ Component, pageProps }) {
+  console.log('MyApp Rendered');
+
   return (
-    <ErrorBoundary>
-    <UserProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <UserProvider>
         <AuthProvider>
-          <NotificationProvider>
-            <Auth0ProviderWithHistory>
-              <div className="min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
-                <Header />
-                <Component {...pageProps} />
-              </div>
-            </Auth0ProviderWithHistory>
-          </NotificationProvider>
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </AuthProvider>
-      </Provider>
-    </UserProvider>
-    </ErrorBoundary>
+      </UserProvider>
+    </Provider>
   );
 }
 

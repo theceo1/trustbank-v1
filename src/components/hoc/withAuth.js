@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 const withAuth = (WrappedComponent) => {
   const WithAuthComponent = (props) => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const router = useRouter();
 
     if (!user) {

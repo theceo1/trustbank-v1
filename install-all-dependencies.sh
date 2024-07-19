@@ -21,6 +21,9 @@ npm install webpack sass-loader source-map-loader file-loader style-loader css-l
 npm install next-compose-plugins --legacy-peer-deps
 npm install next-compose-plugins next-transpile-modules path sass ignore-loader source-map-loader file-loader style-loader css-loader sass-loader @babel/plugin-transform-block-scoping --legacy-peer-deps
 npm install cypress --save-dev --legacy-peer-deps
+npm install next --legacy-peer-deps
+npm install setimmediate --legacy-peer-deps
+npm install openid-client@latest @auth0/nextjs-auth0@latest --legacy-peer-deps
 
 
 # Testing dependencies
