@@ -1,25 +1,21 @@
 // src/pages/_app.js
-import '../styles/globals.css';
-import { Provider } from 'react-redux';
-import store from '@/store';
-import { UserProvider } from '@auth0/nextjs-auth0';
-import { AuthProvider } from '@/context/AuthContext'; // Ensure this path is correct
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
-function MyApp({ Component, pageProps }) {
-  console.log('MyApp Rendered');
+import React from 'react';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { AuthProvider } from '@/context/AuthContext';
 
+const MyApp = ({ Component, pageProps }) => {
   return (
-    <Provider store={store}>
-      <UserProvider>
-        <AuthProvider>
-          <ErrorBoundary>
-            <Component {...pageProps} />
-          </ErrorBoundary>
-        </AuthProvider>
-      </UserProvider>
-    </Provider>
+    <Auth0Provider
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}
+      redirectUri={typeof window !== 'undefined' && window.location.origin}
+    >
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </Auth0Provider>
   );
-}
+};
 
 export default MyApp;

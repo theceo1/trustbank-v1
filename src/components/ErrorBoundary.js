@@ -1,3 +1,4 @@
+// src/components/ui/ErrorBoundary.js
 import React, { Component } from 'react';
 
 class ErrorBoundary extends Component {
@@ -11,8 +12,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // You can log the error to an error reporting service
-    console.error("Error Boundary Caught an error", error, errorInfo);
+    console.error('ErrorBoundary caught an error', error, errorInfo);
   }
 
   render() {
@@ -20,7 +20,7 @@ class ErrorBoundary extends Component {
       return <h1>Something went wrong.</h1>;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 

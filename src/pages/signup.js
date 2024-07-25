@@ -105,7 +105,7 @@ const Signup = () => {
           Sign Up
         </button>
         <p className="mt-4 text-center">
-          Already have an account? <Link href="/signin" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Login</a></Link>
+          Already have an account? <Link href="/signin"><a className="text-blue-500 hover:text-blue-700">Login</a></Link>
         </p>
       </form>
     </div>

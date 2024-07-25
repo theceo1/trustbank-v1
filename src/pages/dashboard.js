@@ -1,219 +1,200 @@
 // src/pages/dashboard.js
-import withAuth from '@/components/hoc/withAuth';
-import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
-import Modal from '@/components/ui/Modal';
-import Tooltip from '@/components/ui/Tooltip';
-import Notification from '@/components/ui/Notification';
-import Button from '@/components/ui/Button';
-import { useAuth } from '@/context/AuthContext';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
-const DynamicChart = dynamic(() => import('@/components/ui/Chart'), { ssr: false });
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/Avatar';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  const [marketData, setMarketData] = useState([]);
-  const [accountBalance, setAccountBalance] = useState({ BTC: 1.23, USD: 12345.67 });
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-  const [tooltipContent, setTooltipContent] = useState('');
-  const [cryptoAmount, setCryptoAmount] = useState('');
-  const [fiatAmount, setFiatAmount] = useState('');
-  const [conversionResult, setConversionResult] = useState('');
+  const { user, logout } = useAuth();
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
-    socket.on('marketData', (data) => {
-      setMarketData(data);
-    });
-
-    socket.on('accountBalance', (data) => {
-      setAccountBalance(data);
-    });
-
-    return () => {
-      socket.off('marketData');
-      socket.off('accountBalance');
+    // Fetch balance and transactions data
+    const fetchData = async () => {
+      try {
+        const { data: balanceData } = await axios.get('/api/balance');
+        const { data: transactionsData } = await axios.get('/api/transactions');
+        setBalance(balanceData.balance);
+        setTransactions(transactionsData.transactions);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
+
+    fetchData();
   }, []);
 
-  const handleTrade = (e) => {
-    e.preventDefault();
-    alert('Trade executed successfully!');
-  };
-
-  const handleCalculator = (e) => {
-    e.preventDefault();
-    setConversionResult(`Converted ${cryptoAmount} to ${fiatAmount}`);
-  };
+  if (!user) {
+    router.push('/signin');
+    return null;
+  }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-white">Welcome, {user?.name || 'User'}</h2>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-1 space-y-6">
-          <Card className="card-balance shadow-lg rounded-xl transform transition-all hover:scale-105">
-            <CardHeader>
-              <CardTitle className="text-black">Account Balance</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl text-black">${accountBalance.USD.toFixed(2)} ≈ {accountBalance.BTC} BTC</p>
-              <div className="flex justify-end mt-4">
-                <Button variant="solid" className="bg-black text-white hover:bg-gray-800 rounded-xl">Deposit</Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
-            <CardHeader>
-              <CardTitle className="text-black">Trade</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form className="space-y-4" onSubmit={handleTrade}>
-                <div className="flex space-x-4">
-                  <Button variant="solid" className="w-full bg-teal-500 text-white hover:bg-teal-600 rounded-xl">Buy</Button>
-                  <Button variant="outline" className="w-full border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded-xl">Sell</Button>
-                </div>
-                <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="crypto">
-                    Coin
-                  </label>
-                  <select id="crypto" name="crypto" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
-                    <option>Bitcoin (BTC)</option>
-                    <option>Ethereum (ETH)</option>
-                    <option>Tether (USDT)</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
-                    Amount
-                  </label>
-                  <input type="number" id="amount" name="amount" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline" />
-                </div>
-                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600 rounded-xl">
-                  Trade
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
-            <CardHeader>
-              <CardTitle className="text-black">Recent Transactions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-black">Bitcoin</span>
-                  <span className="text-green-500">+$1,250.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-black">Ethereum</span>
-                  <span className="text-red-500">-$750.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-black">USDC</span>
-                  <span className="text-green-500">+$500.00</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+    <div className="flex flex-col h-screen">
+      <header className="bg-black text-white py-4 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <a href="#" className="text-2xl font-bold">
+            trustBank
+          </a>
+          <nav className="hidden md:flex items-center gap-4">
+            <a href="#" className="hover:text-gray-400">
+              Trade
+            </a>
+            <a href="#" className="hover:text-gray-400">
+              Earn
+            </a>
+            <a href="#" className="hover:text-gray-400">
+              Wallet
+            </a>
+            <a href="#" className="hover:text-gray-400">
+              Markets
+            </a>
+            <a href="#" className="hover:text-gray-400">
+              Vision
+            </a>
+          </nav>
         </div>
-
-        <div className="lg:col-span-3 space-y-6">
-          <div className="flex justify items-center mb-4">
-            <h2 className="text-2xl font-semibold text-white">Market Overview</h2>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="sm" onClick={logout}>
+            Sign Out
+          </Button>
+        </div>
+      </header>
+      <main className="flex-1 grid grid-cols-1 md:grid-cols-[300px_1fr] bg-gray-100">
+        <div className="bg-white border-r border-gray-200 p-6 md:p-6 lg:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-bold">Dashboard</h2>
           </div>
-          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Coin</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead>Change</TableHead>
-                    <TableHead>Market Cap</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {marketData.map((data) => (
-                    <TableRow key={data.symbol}>
-                      <TableCell>{data.name}</TableCell>
-                      <TableCell>{data.price}</TableCell>
-                      <TableCell className={data.change > 0 ? 'text-green-500' : 'text-red-500'}>
-                        {data.change > 0 ? `+${data.change}%` : `${data.change}%`}
-                      </TableCell>
-                      <TableCell>{data.marketCap}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-lg rounded-xl transform transition-all hover:scale-105">
-            <CardHeader>
-              <CardTitle className="text-black">Crypto to Fiat Calculator</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleCalculator}>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="crypto-calc">
-                    Cryptocurrency
-                  </label>
-                  <select id="crypto-calc" name="crypto-calc" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
-                    <option>Bitcoin</option>
-                    <option>Ethereum</option>
-                    <option>Tether</option>
-                  </select>
+          <div className="grid gap-4">
+            <Card className="bg-teal-500 text-white">
+              <CardHeader>
+                <CardTitle className="text-sm">Account Balance</CardTitle>
+              </CardHeader>
+              <CardContent className="flex items-center justify-between">
+                <div>
+                  <div className="text-4xl font-bold">${balance}</div>
+                  <div className="text-gray-200 text-xs">≈ {balance / 50000} BTC</div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fiat">
-                    Fiat Currency
-                  </label>
-                  <select id="fiat" name="fiat" className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
-                    <option>USD</option>
-                    <option>EUR</option>
-                    <option>GBP</option>
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount-calc">
-                    Amount
-                  </label>
-                  <input type="number" id="amount-calc" name="amount-calc" value={cryptoAmount} onChange={(e) => setCryptoAmount(e.target.value)} className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline" />
-                </div>
-                <Button type="submit" variant="solid" className="bg-teal-500 text-white hover:bg-teal-600 rounded-xl">
-                  Calculate
+                <Button variant="outline" size="sm">
+                  Deposit
                 </Button>
-              </form>
-              {conversionResult && (
-                <div className="mt-4 p-4 bg-teal-100 rounded-lg shadow-inner">
-                  <p className="text-black">{conversionResult}</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle className="text-sm">Recent Transactions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-2">
+                  {transactions.map((transaction) => (
+                    <div key={transaction.id} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-8 h-8 border">
+                          <AvatarImage src={transaction.avatar} />
+                          <AvatarFallback>{transaction.currency}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium text-sm">{transaction.currency}</div>
+                          <div className="text-gray-500 text-xs">{transaction.type} {transaction.amount}</div>
+                        </div>
+                      </div>
+                      <div className={`font-medium text-sm ${transaction.type === 'Bought' ? 'text-green-500' : 'text-red-500'}`}>
+                        {transaction.type === 'Bought' ? '+' : '-'}${transaction.amount * transaction.price}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
-
-      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <h2>Modal Title</h2>
-        <p>This is a modal content.</p>
-      </Modal>
-      {notifications.map((notification, index) => (
-        <Notification key={index} message={notification.message} type={notification.type} />
-      ))}
-      <Tooltip text={tooltipContent}>
-        <Button variant="outline">Hover me</Button>
-      </Tooltip>
+        <div className="bg-gray-100 dark:bg-gray-950 dark:text-white p-6 md:p-6 lg:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-bold">Market Overview</h2>
+          </div>
+          <div className="grid gap-4">
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle className="text-sm">Top Cryptocurrencies</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-sm">Coin</TableHead>
+                      <TableHead className="text-sm">Price</TableHead>
+                      <TableHead className="text-sm">Change</TableHead>
+                      <TableHead className="text-sm">Market Cap</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-8 h-8 border">
+                            <AvatarImage src="/placeholder-user.jpg" />
+                            <AvatarFallback>BTC</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="font-medium text-sm">Bitcoin</div>
+                            <div className="text-gray-500 text-xs">BTC</div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm">$56,789.00</TableCell>
+                      <TableCell className="text-green-500 text-sm">+2.5%</TableCell>
+                      <TableCell className="text-sm">$1.2T</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-8 h-8 border">
+                            <AvatarImage src="/placeholder-user.jpg" />
+                            <AvatarFallback>ETH</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="font-medium text-sm">Ethereum</div>
+                            <div className="text-gray-500 text-xs">ETH</div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm">$1,789.00</TableCell>
+                      <TableCell className="text-red-500 text-sm">-1.2%</TableCell>
+                      <TableCell className="text-sm">$210B</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-8 h-8 border">
+                            <AvatarImage src="/placeholder-user.jpg" />
+                            <AvatarFallback>USDC</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="font-medium text-sm">USDC</div>
+                            <div className="text-gray-500 text-xs">USDC</div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm">$1.00</TableCell>
+                      <TableCell className="text-green-500 text-sm">+0.1%</TableCell>
+                      <TableCell className="text-sm">$55B</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
 
-export default withAuth(Dashboard);
+export default Dashboard;

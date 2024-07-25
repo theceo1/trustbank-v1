@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Install dependencies
 npm install next react react-dom socket.io-client @heroicons/react recharts

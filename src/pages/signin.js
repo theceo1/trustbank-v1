@@ -2,10 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
-import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-
+import Link from 'next/link';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -56,7 +54,7 @@ const SignIn = () => {
         </div>
         <button type="submit" className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-300">Sign In</button>
         <p className="mt-4 text-center">
-          Don&apos;t have an account? <Link href="/signup" legacyBehavior><a className="text-blue-500 hover:text-blue-700">Sign Up</a></Link>
+          Don&apos;t have an account? <Link href="/signup"><a className="text-blue-500 hover:text-blue-700">Sign Up</a></Link>
         </p>
       </form>
     </div>

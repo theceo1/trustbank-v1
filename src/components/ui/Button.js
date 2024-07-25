@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Button = ({ variant, children }) => {
-  const baseClass = 'py-2 px-4 rounded focus:outline-none text-base';
-  const variantClass = variant === 'outline'
-    ? 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white'
-    : '';
+const Button = ({ variant, size, children, ...props }) => {
+  const classes = classNames({
+    'btn': true,
+    [`btn-${variant}`]: variant,
+    [`btn-${size}`]: size,
+  });
 
   return (
-    <button className={`${baseClass} ${variantClass}`}>
+    <button className={classes} {...props}>
       {children}
     </button>
   );
 };
 
 Button.propTypes = {
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf(['outline', 'solid']).isRequired,
+  size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
   children: PropTypes.node.isRequired,
 };
 

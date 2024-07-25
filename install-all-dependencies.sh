@@ -24,6 +24,10 @@ npm install cypress --save-dev --legacy-peer-deps
 npm install next --legacy-peer-deps
 npm install setimmediate --legacy-peer-deps
 npm install openid-client@latest @auth0/nextjs-auth0@latest --legacy-peer-deps
+npm install react-hook-form yup @hookform/resolvers --legacy-peer-deps
+npm install @auth0/auth0-react --legacy-peer-deps
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom cypress --legacy-peer-deps
+
 
 
 # Testing dependencies

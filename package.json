@@ -18,6 +18,7 @@
     "@auth0/auth0-react": "^2.2.4",
     "@auth0/nextjs-auth0": "^3.5.0",
     "@babel/plugin-transform-block-scoping": "^7.24.7",
+    "@hookform/resolvers": "^3.9.0",
     "@svgr/webpack": "^8.1.0",
     "ajv": "^8.17.1",
     "ajv-keywords": "^5.1.0",
@@ -33,7 +34,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "file-loader": "^6.2.0",
-    "framer-motion": "^11.3.2",
+    "framer-motion": "^11.3.7",
     "global": "^4.4.0",
     "http": "^0.0.1-security",
     "ignore-loader": "^0.1.2",
@@ -73,7 +74,8 @@
     "v1": "^1.0.0",
     "webpack": "^5.93.0",
     "ws": "^8.17.1",
-    "xmlhttprequest-ssl": "^2.1.1"
+    "xmlhttprequest-ssl": "^2.1.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
@@ -91,7 +93,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
     "babel-jest": "^29.7.0",
-    "cypress": "^13.13.0",
+    "cypress": "^13.13.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "identity-obj-proxy": "^3.0.0",
@@ -101,7 +103,7 @@
     "pm2": "^5.4.1",
     "postcss": "^8.4.39",
     "react-router-dom": "^6.24.1",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.6",
     "ts-jest": "^29.1.0",
     "typescript": "^5"
   },
