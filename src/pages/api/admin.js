@@ -1,12 +1,7 @@
-const { withApiAuthRequired, getSession } = require('@auth0/nextjs-auth0');
+// src/pages/api/admin.js
 const checkRole = require('@/middleware/checkRole');
+const User = require('../../../models/User');
 
-const handler = async (req, res) => {
-  const { user } = getSession(req, res);
-  req.user = user;
-
-  // Your admin route logic here
-  res.status(200).json({ message: 'Welcome, admin!' });
+module.exports = (req, res) => {
+  // Your handler code
 };
-
-module.exports = withApiAuthRequired(checkRole('admin')(handler));

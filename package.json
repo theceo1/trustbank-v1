@@ -2,6 +2,7 @@
   "name": "trustbank",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -11,8 +12,7 @@
     "test": "jest",
     "server": "node server.js",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "postinstall": "node fix-utils-types.js"
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
@@ -34,7 +34,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "file-loader": "^6.2.0",
-    "framer-motion": "^11.3.7",
+    "framer-motion": "^11.3.17",
     "global": "^4.4.0",
     "http": "^0.0.1-security",
     "ignore-loader": "^0.1.2",
@@ -101,9 +101,9 @@
     "jest-environment-jsdom": "^29.7.0",
     "next": "^14.2.5",
     "pm2": "^5.4.1",
-    "postcss": "^8.4.39",
+    "postcss": "^8.4.40",
     "react-router-dom": "^6.24.1",
-    "tailwindcss": "^3.4.6",
+    "tailwindcss": "^3.4.7",
     "ts-jest": "^29.1.0",
     "typescript": "^5"
   },

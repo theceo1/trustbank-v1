@@ -1,35 +1,41 @@
-// src/utils/db.js
+// server.js
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const next = require('next');
+const adminRoutes = require('./routes/admin');
 
-import mongoose from 'mongoose';
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 3000;
 
-if (!MONGODB_URI) {
+if (!process.env.MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-let cached = global.mongoose;
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
 
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+app.prepare().then(() => {
+  const server = express();
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
+  server.use(express.json());
+  server.use('/admin', adminRoutes);
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
-  }
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
 
-export default dbConnect;
+  server.listen(PORT, (err) => {
+    if (err) throw err;
+    console.log(`Ready on http://localhost:${PORT}`);
+  });
+});
